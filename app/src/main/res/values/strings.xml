@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BMI</string>
+    <string name="app_name">BMI Record</string>
     <string name="no_record">No Record</string>
     <string name="o_w_1">Your current weight is below the normal range. It is recommended to increase your nutritional intake and consult a healthcare professional for personalized health advice.</string>
     <string name="o_w_2">Congratulations! Your BMI is in the normal range. Keep maintaining a balanced diet, regular exercise, and adequate sleep to sustain this healthy weight!</string>

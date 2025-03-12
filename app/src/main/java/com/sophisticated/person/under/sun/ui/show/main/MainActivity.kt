@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
             BmiUtils.shareText(this)
         }
         binding.tvRate.setOnClickListener {
-            startActivity(Intent("android.intent.action.VIEW", Uri.parse("https://baidu.com/")))
+            startActivity(Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=${this.packageName}")))
         }
         binding.tvPrivacyPolicy.setOnClickListener {
             startActivity(
                 Intent(
-                    "android.intent.action.VIEW", Uri.parse("https://baidu.com/")
+                    "android.intent.action.VIEW", Uri.parse("https://sites.google.com/view/bmi-record-app/home")
                 )
             )
         }
