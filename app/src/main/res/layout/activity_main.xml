@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/dl_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/patua_one"
+                android:text="Welcome!"
+                android:textColor="#313935"
+                android:textSize="24sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aiv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@mipmap/ic_setting"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_bmi"
+                android:layout_width="149dp"
+                android:layout_height="164dp"
+                android:src="@mipmap/ic_m_bmi"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toStartOf="@+id/img_we"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_we"
+                android:layout_width="149dp"
+                android:layout_height="164dp"
+                android:src="@mipmap/ic_m_we"
+                app:layout_constraintBottom_toBottomOf="@+id/img_bmi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_bmi"
+                app:layout_constraintTop_toTopOf="@+id/img_bmi" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:background="#FAFBF0"
+            android:layout_gravity="start"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_nav_logo"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="64dp"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_menu"
+                android:drawableEnd="@mipmap/icon_nav_be"
+                android:padding="16dp"
+                android:text="Share"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_menu"
+                android:drawableEnd="@mipmap/icon_nav_be"
+                android:padding="16dp"
+                android:text="Rate"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="34dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_menu"
+                android:drawableEnd="@mipmap/icon_nav_be"
+                android:padding="16dp"
+                android:text="Privacy Policy"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

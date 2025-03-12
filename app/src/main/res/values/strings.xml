@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BMI</string>
+    <string name="no_record">No Record</string>
+    <string name="o_w_1">Your current weight is below the normal range. It is recommended to increase your nutritional intake and consult a healthcare professional for personalized health advice.</string>
+    <string name="o_w_2">Congratulations! Your BMI is in the normal range. Keep maintaining a balanced diet, regular exercise, and adequate sleep to sustain this healthy weight!</string>
+    <string name="o_w_3">Your current weight is above the normal range. It is recommended to adjust your dietary habits, increase your physical activity, and consult a healthcare professional for personalized health advice.</string>
+    <string name="o_w_4">Your weight poses a significant health risk. Please improve your dietary habits, increase physical activity, and seek help from a healthcare professional to develop an effective weight loss plan. </string>
+    <string name="error_invalid_input">Please enter the correct value</string>
+
+</resources>
