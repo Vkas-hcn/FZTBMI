@@ -1,5 +1,6 @@
 package com.ling.ding.sighed.zwthf;
 
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
@@ -13,9 +14,8 @@ public class WTNNChanged extends WebChromeClient {
     @Override
     public void onProgressChanged(WebView webView, int i10) {
         super.onProgressChanged(webView, i10);
-
         if (i10 == 100) {
-            ShowDataTool.INSTANCE.showLog(" onPageStarted=url=");
+            Log.e("TAG", "onProgressChanged: ");
             HFiveMain.hfcanLast(i10);
         }
     }

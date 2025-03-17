@@ -3,6 +3,7 @@ package com.ling.ding.sighed.adtool
 import android.util.Log
 import com.google.gson.Gson
 import com.ling.ding.sighed.txtbean.DliBean
+import com.ling.ding.sighed.txtdata.DrinkConfigData
 import com.ling.ding.sighed.txtmain.FirstRunFun
 
 object ShowDataTool {

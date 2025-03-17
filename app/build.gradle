@@ -14,16 +14,18 @@ stringfog {
 }
 android {
     namespace 'com.sophisticated.person.under.sun'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.sophisticated.person.under.sun"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        setProperty("archivesBaseName", "BMI_Record_v${versionName}")
+
     }
 
     buildTypes {
@@ -53,7 +55,7 @@ android {
 }
 
 dependencies {
-//    implementation project(":dliGuso")
+    implementation project(":dliGuso")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
@@ -65,5 +67,58 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
     implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
     implementation 'com.github.megatronking.stringfog:xor:5.0.0'
-
+    // TradPlus
+    implementation 'com.tradplusad:tradplus:13.1.0.1'
+    //noinspection GradleCompatible
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha02'
+    // Meta
+    implementation 'com.facebook.android:audience-network-sdk:6.18.0'
+    implementation 'com.tradplusad:tradplus-facebook:1.13.1.0.1'
+    // Applovin
+    implementation 'com.applovin:applovin-sdk:13.0.1'
+    implementation 'com.tradplusad:tradplus-applovin:9.13.1.0.1'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    // Pangle
+    implementation 'com.tradplusad:tradplus-pangle:19.13.1.0.1'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    implementation 'com.pangle.global:ads-sdk:6.4.0.2'
+    // Inmobi
+    implementation 'com.tradplusad:tradplus-inmobix:23.13.1.0.1'
+    implementation 'com.inmobi.monetization:inmobi-ads-kotlin:10.8.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'com.inmobi.omsdk:inmobi-omsdk:1.3.17.1'
+    // Mintegral
+    implementation 'com.tradplusad:tradplus-mintegralx_overseas:18.13.1.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.mbridge.msdk.oversea:mbridge_android_sdk:16.8.91'
+    // Liftoff
+    implementation 'com.tradplusad:tradplus-vunglex:7.13.1.0.1'
+    implementation 'com.vungle:vungle-ads:7.4.2'
+    // Yandex
+    //noinspection MobileAdsSdkOutdatedVersion
+    implementation 'com.yandex.android:mobileads:7.7.0'
+    implementation 'com.tradplusad:tradplus-yandex:50.13.1.0.1'
+    // Bigo
+    implementation 'com.bigossp:bigo-ads:5.1.0'
+    implementation 'com.tradplusad:tradplus-bigo:57.13.1.0.1'
+    // Cross Promotion
+    implementation 'com.tradplusad:tradplus-crosspromotion:27.13.1.0.1'
+    // TP Exchange
+    // 请注意保持与主包版本同步更新
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.tradplusad:tp_exchange:40.12.1.10.1'
+    // KwaiAds
+    implementation 'com.tradplusad:tradplus-kwai:75.13.1.0.1'
+    implementation 'io.github.kwainetwork:adImpl:1.2.14'
+    implementation 'io.github.kwainetwork:adApi:1.2.14'
+    // media3-exoplayer适配版本为「1.0.0-alpha01 - 1.2.0」
+    implementation "androidx.media3:media3-exoplayer:1.0.0-alpha01"
+    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "com.google.android.material:material:1.2.1"
+    implementation "androidx.annotation:annotation:1.2.0"
+    // 最低支持 kotlin1.4.10
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+    //最低支持play-services-ads-identifier:18.0.1
+    implementation "com.google.android.gms:play-services-ads-identifier:18.0.1"
 }

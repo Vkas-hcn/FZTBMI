@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import com.ling.ding.sighed.txtmain.FirstRunFun
 import java.util.UUID
 
 class BmiApp : Application() {
@@ -16,6 +17,7 @@ class BmiApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FirstRunFun.init(this, false)
         appContext = this
         sharedPreferences = this.getSharedPreferences("BmiRecords", Context.MODE_PRIVATE)
         val uuidData = sharedPreferences.getString("uuidData", null)

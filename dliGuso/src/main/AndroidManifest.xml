@@ -89,7 +89,7 @@
         </receiver>
 
         <activity
-            android:name=".uican.UiCanActivity"
+            android:name=".macui.GuSoActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:finishOnCloseSystemDialogs="true"
@@ -98,11 +98,8 @@
             android:launchMode="singleTask"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/TransparentTheme" />
-        <activity
-            android:name=".netui.NetUiActivity"
-            android:launchMode="singleTop" />
         <activity
             android:name="com.applovin.adview.AppLovinFullscreenActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
@@ -116,7 +113,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="behind"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.applovin.sdk.AppLovinWebViewActivity"
@@ -127,7 +124,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen" />
+            android:taskAffinity="ling.ding.sighed" />
 
         <!-- Hybrid Ad Activities -->
         <activity
@@ -139,7 +136,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.applovin.mediation.hybridAds.MaxHybridNativeAdActivity"
@@ -150,7 +147,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <activity
@@ -164,7 +161,7 @@
             android:launchMode="singleTop"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen" />
+            android:taskAffinity="ling.ding.sighed" />
 
 
 
@@ -178,7 +175,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
@@ -189,7 +186,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
@@ -202,7 +199,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_landing_page" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTPlayableLandingPageActivity"
@@ -214,7 +211,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_landing_page" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTVideoLandingPageLink2Activity"
@@ -226,7 +223,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_landing_page" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTDelegateActivity"
@@ -237,7 +234,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTWebsiteActivity"
@@ -249,7 +246,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_privacy_landing_page" />
 
 
@@ -263,7 +260,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_app_open_ad_no_animation" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTRewardVideoActivity"
@@ -275,7 +272,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_new" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTRewardExpressVideoActivity"
@@ -287,7 +284,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_new" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTFullScreenVideoActivity"
@@ -299,7 +296,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_new" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTFullScreenExpressVideoActivity"
@@ -311,7 +308,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_new" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTInterstitialActivity"
@@ -323,7 +320,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_interaction" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTInterstitialExpressActivity"
@@ -335,7 +332,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_interaction" />
         <activity
             android:name="com.bytedance.sdk.openadsdk.activity.TTAdActivity"
@@ -347,7 +344,7 @@
             android:launchMode="standard"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/tt_full_screen_new" />
 
         <activity
@@ -360,7 +357,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/mbridge_transparent_common_activity_style" />
         <!-- integration rewardVideo if aggregation nativeX pls add start -->
 
@@ -372,7 +369,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen" />
+            android:taskAffinity="ling.ding.sighed" />
         <!-- integration rewardVideo if aggregation nativeX pls add end -->
         <activity
             android:name="com.mbridge.msdk.newreward.player.MBRewardVideoActivity"
@@ -383,7 +380,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.mbridge.msdk.reward.player.MBRewardVideoActivity"
@@ -394,7 +391,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
@@ -406,7 +403,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/MonetizationAdsInternal.AdActivity" />
 
 
@@ -419,7 +416,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/DebugPanelTheme" />
 
 
@@ -432,7 +429,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme" />
         <activity
             android:name="sg.bigo.ads.ad.splash.LandscapeAdSplashActivity"
@@ -443,7 +440,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="landscape"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme" />
 
         <activity
@@ -456,7 +453,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.NoTitleBar"
             tools:ignore="UnusedAttribute" />
 
@@ -468,7 +465,7 @@
             android:label="@string/ceshi"
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="sg.bigo.ads.api.AdActivity"
@@ -480,7 +477,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -493,7 +490,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@style/TransparentDialog"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -506,7 +503,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -519,7 +516,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="landscape"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -532,7 +529,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -545,7 +542,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="landscape"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -558,7 +555,7 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:screenOrientation="portrait"
-            android:taskAffinity="flying.grass.seen"
+            android:taskAffinity="ling.ding.sighed"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
     </application>

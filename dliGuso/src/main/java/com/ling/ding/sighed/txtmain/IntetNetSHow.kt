@@ -13,7 +13,7 @@ import com.ling.ding.sighed.txtdata.DrinkConfigData
 import com.ling.ding.sighed.txtdata.DrinkStartApp
 import com.ling.ding.sighed.txtdata.DrinkStartApp.isServiceRunning
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
-import com.ling.ding.sighed.uican.UiCanActivity
+import com.ling.ding.sighed.macui.GuSoActivity
 import com.ling.ding.sighed.zallsi.serfzoret.FzoretFS
 
 @Keep
@@ -36,7 +36,7 @@ class IntetNetSHow : Application.ActivityLifecycleCallbacks {
 
 
     fun xiug(activity: Activity){
-        if (activity is UiCanActivity) {
+        if (activity is GuSoActivity) {
             return
         }
         if (activity.javaClass.name.contains(DrinkConfigData.startPack2)) {
@@ -57,6 +57,7 @@ class IntetNetSHow : Application.ActivityLifecycleCallbacks {
 
     private fun addFun(activity: Activity){
         addActivity(activity)
+        ShowDataTool.showLog("TxtNiFS onStartCommand-0=${isServiceRunning}")
         if (!isServiceRunning) {
             ContextCompat.startForegroundService(
                 mainStart,

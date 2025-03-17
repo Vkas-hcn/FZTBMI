@@ -2,6 +2,7 @@ package com.ling.ding.sighed.netool
 
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
 import com.ling.ding.sighed.adtool.ShowDataTool
 import org.json.JSONObject
@@ -25,33 +26,33 @@ object AppPointData {
 
     private fun topJsonData(): JSONObject {
         return  JSONObject().apply {
-            //client_ts
-            put("senate", System.currentTimeMillis())
-            //os
-            put("tee", "fir")
-            //device_model-最新需要传真实值
-            put("weight", Build.BRAND)
-            //app_version
-            put("lase", showAppVersion())
-            //android_id
-            put("stultify", FirstRunFun.localStorage.appiddata)
-            //log_id
-            put("depend", UUID.randomUUID().toString())
-            //operator 传假值字符串
-            put("sophia", "778899")
-            //distinct_id
-            put("sandy", FirstRunFun.localStorage.appiddata)
             //os_version
-            put("crane", Build.VERSION.RELEASE)
-            //manufacturer
-            put("padlock", Build.MANUFACTURER)
-            //gaid
-            put("tripe", "")
-            //bundle_id
-            put("end", mainStart.packageName)
-
+            put("are", Build.VERSION.RELEASE)
+            //android_id
+            put("hesitant", FirstRunFun.localStorage.appiddata)
+            //app_version
+            put("supine", showAppVersion())
+            //device_model-最新需要传真实值
+            put("lullaby", Build.BRAND)
             //system_language//假值
-            put("stimuli", "acsa_sdasl")
+            put("avow", "acsa_sdasl")
+            //os
+            put("mcgraw", "massive")
+            //bundle_id
+            put("landfill", mainStart.packageName)
+            //distinct_id
+            put("familial", FirstRunFun.localStorage.appiddata)
+            //operator 传假值字符串
+            put("overt", "ces2")
+            //client_ts
+            put("grip", System.currentTimeMillis())
+            //log_id
+            put("knapp", UUID.randomUUID().toString())
+            //manufacturer
+            put("route", Build.MANUFACTURER)
+            //gaid
+            put("aitken", "")
+
         }
 
     }
@@ -59,71 +60,69 @@ object AppPointData {
     fun upInstallJson(): String {
         return topJsonData().apply {
             //build
-            put("addle", "build/${Build.ID}")
+            put("machine", "build/${Build.ID}")
 
             //referrer_url
-            put("sent", FirstRunFun.localStorage.refdata)
+            put("prompt", FirstRunFun.localStorage.refdata)
 
             //user_agent
-            put("dextrous", "")
+            put("donovan", "")
 
             //lat
-            put("pate", "eject")
+            put("urushiol", "contempt")
 
             //referrer_click_timestamp_seconds
-            put("wilt", 0)
+            put("heroic", 0)
 
             //install_begin_timestamp_seconds
-            put("sane", 0)
+            put("olivine", 0)
 
             //referrer_click_timestamp_server_seconds
-            put("fracture", 0)
+            put("brigade", 0)
 
             //install_begin_timestamp_server_seconds
-            put("carriage", 0)
+            put("mend", 0)
 
             //install_first_seconds
-            put("moslem", getFirstInstallTime())
+            put("truthful", getFirstInstallTime())
 
             //last_update_seconds
-            put("harlan", 0)
+            put("hay", 0)
 
-            put("wrongful","brandt")
+            put("raunchy","wastrel")
         }.toString()
     }
 
     fun upAdJson(adValue: TPAdInfo): String {
-        val upstream = JSONObject().apply {
+        return topJsonData().apply {
             //ad_pre_ecpm
-            put("eyelid", adValue.ecpm.toDouble() * 1000)
+            put("suckle", adValue.ecpm.toDouble() * 1000)
             //currency
-            put("codfish", "USD")
+            put("emilio", "USD")
             //ad_network
             put(
-                "thorny",
+                "hibernia",
                 adValue.adSourceName
             )
             //ad_source
-            put("evocable", "Tradplus")
+            put("future", "Tradplus")
             //ad_code_id
-            put("quichua", adValue.tpAdUnitId)
+            put("hoopla", adValue.tpAdUnitId)
             //ad_pos_id
-            put("cash", "int")
+            put("woeful", "int")
             //ad_rit_id
-            put("venetian", "")
+            put("ganglion", "")
             //ad_sense
-            put("disc", "")
+            put("mu", "")
             //ad_format
-            put("burgher", adValue.format)
-        }
-        return topJsonData().apply {
-            put("upstream", upstream)
+            put("shook", adValue.format)
+            put("raunchy", "such")
         }.toString()
     }
 
     fun upPointJson(name: String): String {
         return topJsonData().apply {
-            put("wrongful", name)
+            put("raunchy", name)
         }.toString()
     }
 
@@ -136,13 +135,16 @@ object AppPointData {
     ): String {
 
         return topJsonData().apply {
-            put("wrongful", name)
+            put("raunchy", name)
+            // 创建一个新的 JSON 对象用于存放属性
+            put(name,JSONObject().apply {
                 if (key1 != null) {
-                    put("alvin|${key1}", keyValue1)
+                    put(key1, keyValue1)
                 }
                 if (key2 != null) {
-                    put("alvin|${key2}", keyValue2)
+                    put(key2, keyValue2)
                 }
+            })
         }.toString()
     }
     private fun getFirstInstallTime(): Long {
@@ -195,7 +197,6 @@ object AppPointData {
 
     fun getadmin(type: String, codeInt: String?) {
         var isuserData: String? = null
-
         if (codeInt == null) {
             isuserData = null
         } else if (codeInt != "200") {

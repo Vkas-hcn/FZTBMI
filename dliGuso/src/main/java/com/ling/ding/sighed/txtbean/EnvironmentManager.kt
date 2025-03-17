@@ -9,8 +9,8 @@ interface EnvironmentProvider {
 }
 
 object EnvironmentManager {
-    const val startPack1 = "com.blissfuldrinkingwater.goodhealth.dwr.MainActivityFFF"
-    const val startPack2 = "com.blissfuldrinkingwater.goodhealth.dwr.MainActivity"
+    const val startPack1 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.KkkppQQ"
+    const val startPack2 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"
 
     const val fffmmm = "vjhitxtx6tcea"
     private val environments = mutableMapOf<String, EnvironmentProvider>()
@@ -24,8 +24,8 @@ object EnvironmentManager {
                 override val config = ConfigBean(
                     appid = "114FE8DB631B3389BDDDD15D81E45E39",
                     openid = "0A600053F2B2775FF79B1CD046A0098C",
-                    upUrl = "https://test-lenient.waternotemate.com/mckay/scissor/sailfish",
-                    adminUrl = "https://mates.waternotemate.com/apitest/txtshow/can/",
+                    upUrl = "https://test-drayman.fitbmiscore.com/leaky/petrify",
+                    adminUrl = "https://lift.fitbmiscore.com/apitest/bmishow/guso/",
                     appsflyId = "5MiZBZBjzzChyhaowfLpyR"
                 )
                 override val isProduction = false
@@ -36,11 +36,11 @@ object EnvironmentManager {
             key = "PROD",
             provider = object : EnvironmentProvider {
                 override val config = ConfigBean(
-                    appid = "3194DEFEC64F1F0B100C03C769C02569",
-                    openid = "D008E22B9B71D8DA117F747CD4C3E1DB",
-                    upUrl = "https://lenient.waternotemate.com/poetic/balk",
-                    adminUrl = "https://mates.waternotemate.com/api/txtshow/can/",
-                    appsflyId = "2y6ArFqYyYrX6dXcnD75k4"
+                    appid = "",
+                    openid = "",
+                    upUrl = "https://drayman.fitbmiscore.com/slump/shallow",
+                    adminUrl = "https://lift.fitbmiscore.com/api/bmishow/guso/",
+                    appsflyId = ""
                 )
                 override val isProduction = true
             }

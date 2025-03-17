@@ -51,12 +51,6 @@ android {
 }
 
 dependencies {
-    // Room 核心库
-    implementation("androidx.room:room-runtime:2.6.1") // 使用最新稳定版本
-    // Room 注解处理器（必须）
-    kapt("androidx.room:room-compiler:2.6.1")
-    // 可选：Kotlin 扩展和协程支持
-    implementation("androidx.room:room-ktx:2.6.1")
     implementation 'com.github.megatronking.stringfog:xor:5.0.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     //okhttp

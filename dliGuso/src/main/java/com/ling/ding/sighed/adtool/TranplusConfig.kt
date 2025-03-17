@@ -8,53 +8,78 @@ import com.facebook.appevents.AppEventsLogger
 import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
 
+
+
+/**
+ * 广告配置管理类
+ * 负责Facebook SDK初始化、设备状态检查和广告限制管理
+ */
 object TranplusConfig {
+    // 广告展示相关时间记录
     var adShowTime: Long = 0
     var showAdTime: Long = 0
 
-
-
-    fun getFBInfOr() {
+    /**
+     * 初始化Facebook SDK
+     */
+    fun initializeFacebookSDK() {
         val jsonBean = ShowDataTool.getAdminData()
-        val data = jsonBean?.assetConfig?.identifiers?.facebook?.placementId
-        if (data.isNullOrBlank()) {
+        val facebookPlacementId = jsonBean?.assetConfig?.identifiers?.facebook?.placementId
+
+        if (facebookPlacementId.isNullOrBlank()) {
+            ShowDataTool.showLog("Facebook初始化失败: PlacementID为空")
             return
         }
-        ShowDataTool.showLog("getFBInfOr: ${data}")
-        FacebookSdk.setApplicationId(data)
-        FacebookSdk.sdkInitialize(mainStart)
-        AppEventsLogger.activateApp(mainStart)
+
+        ShowDataTool.showLog("Facebook初始化: ID=${facebookPlacementId}")
+
+        try {
+            FacebookSdk.setApplicationId(facebookPlacementId)
+            FacebookSdk.sdkInitialize(mainStart)
+            AppEventsLogger.activateApp(mainStart)
+        } catch (e: Exception) {
+            ShowDataTool.showLog("Facebook初始化异常: ${e.message}")
+        }
     }
 
-    fun canShowLocked(): Boolean {
+    /**
+     * 检查设备是否处于锁屏或息屏状态
+     *
+     * @return true 如果处于锁屏或息屏状态，否则返回false
+     */
+    fun isDeviceLocked(): Boolean {
         val powerManager = mainStart.getSystemService(Context.POWER_SERVICE) as? PowerManager
-        val keyguardManager =
-            mainStart.getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
+        val keyguardManager = mainStart.getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
+
         if (powerManager == null || keyguardManager == null) {
-            return false
+            ShowDataTool.showLog("系统服务获取失败，默认设备状态为锁定")
+            return true
         }
+
         val isScreenOn = powerManager.isInteractive
         val isInKeyguardRestrictedInputMode = keyguardManager.inKeyguardRestrictedInputMode()
 
         return !isScreenOn || isInKeyguardRestrictedInputMode
     }
 
-
-    fun adNumAndPoint(): Boolean {
+    /**
+     * 检查广告失败次数是否超过配置的最大值
+     *
+     * @return true 如果广告失败次数已达上限，否则返回false
+     */
+    fun hasReachedAdFailureLimit(): Boolean {
         val adminBean = ShowDataTool.getAdminData()
+
         if (adminBean == null) {
-            ShowDataTool.showLog("AdminBean is null, cannot determine adNumAndPoint")
+            ShowDataTool.showLog("配置数据为空，无法检查广告失败次数限制")
             return false
         }
-        // 从配置中获取最大失败次数
-        val maxFailNum = adminBean.adOperations.constraints.interactions.errorHandling.maxErrors
-        // 如果失败次数超过最大限制且需要重置
-        ShowDataTool.showLog("maxFailNum=${maxFailNum}----startApp.localStorage.isAdFailCount=${FirstRunFun.localStorage.isAdFailCount}")
 
-        if (FirstRunFun.localStorage.isAdFailCount >= maxFailNum) {
-            ShowDataTool.showLog("Ad failure count has exceeded the limit, resetting...")
-            return true
-        }
-        return false
+        val maxFailNum = adminBean.adOperations.constraints.interactions.errorHandling.maxErrors
+        val currentFailCount = FirstRunFun.localStorage.isAdFailCount
+
+        ShowDataTool.showLog("广告失败检查: 最大失败次数=${maxFailNum}, 当前失败次数=${currentFailCount}")
+
+        return currentFailCount >= maxFailNum
     }
 }

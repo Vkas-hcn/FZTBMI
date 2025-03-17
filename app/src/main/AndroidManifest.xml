@@ -11,33 +11,43 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:fullBackupContent,android:dataExtractionRules"
         android:theme="@style/Theme.BmiShow"
         tools:targetApi="31">
-        <activity android:name=".ui.show.qqqqddd.Kkkpp"
-            android:launchMode="singleTop"
+        <activity android:name=".ui.show.qqqqddd.KkkppQQ"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+                <data
+                    android:host="com.sophisticated.person.under.sun"
+                    android:scheme="com.sophisticated.person.under.sun" />
             </intent-filter>
         </activity>
+        <activity-alias
+            android:name="com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".ui.show.qqqqddd.KkkppQQ">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <activity android:name=".ui.show.main.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.show.plus.AddActivity"
             android:screenOrientation="portrait" />
 
-
-
         <activity android:name=".ui.show.we.WeightActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.show.resu.ResultActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".data.cango.Wwwwzzz"
             android:screenOrientation="portrait" />
 
     </application>

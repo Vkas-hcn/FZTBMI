@@ -20,7 +20,13 @@ import kotlin.coroutines.resume
 
 object TtPoint {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    // 创建依赖实例
+    val requestManager = RequestManager()
+    val dataProcessor = DataProcessor()
+    val responseHandler = ResponseHandler(dataProcessor)
 
+    // 创建 NetTool 实例
+    val netTool = NetTool(requestManager, dataProcessor, responseHandler)
     sealed class Result<out T> {
         data class Success<out T>(val value: T) : Result<T>()
         data class Failure(val exception: Throwable) : Result<Nothing>()
@@ -35,10 +41,10 @@ object TtPoint {
                 maxDelay = 40_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executeAdminRequestSuspend()
+                    val result = executeAdminRequestSuspend()
                     val bean = ShowDataTool.getAdminData()
                     ShowDataTool.showLog("admin-data-1=${ bean?.userManagement?.profile?.classification}=: $result")
-                    if (bean != null && bean?.userManagement?.profile?.classification!="1") {
+                    if (bean != null && bean.userManagement.profile.classification!="1") {
                         ShowDataTool.showLog("不是A用户，进行重试")
                         bPostAdmin()
                     }
@@ -60,7 +66,7 @@ object TtPoint {
             val delay = Random.nextLong(1000, 10 * 60 * 1000)
             var isStart = false
 
-            if (bean != null && bean?.userManagement?.profile?.classification=="1") {
+            if (bean != null && bean.userManagement.profile.classification=="1") {
                 isStart = true
                 canIntNextFun()
                 ShowDataTool.showLog("冷启动app延迟 ${delay}ms 请求admin数据")
@@ -72,7 +78,7 @@ object TtPoint {
                 maxDelay = 40_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executeAdminRequestSuspend()
+                    val result = executeAdminRequestSuspend()
                     val beanDAta = ShowDataTool.getAdminData()
                     ShowDataTool.showLog("admin-data-2: $result")
                     if (beanDAta != null && beanDAta?.userManagement?.profile?.classification!="1") {
@@ -92,6 +98,7 @@ object TtPoint {
 
     private fun bPostAdmin() {
         scope.launch {
+            delay(60000)
             // 执行带重试机制的请求
             executeWithRetry(
                 maxRetries = 6,
@@ -99,9 +106,9 @@ object TtPoint {
                 maxDelay = 60_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executeAdminRequestSuspend()
+                    val result = executeAdminRequestSuspend()
                     val bean = ShowDataTool.getAdminData()
-                    ShowDataTool.showLog("admin-onSuccess: $result")
+                    ShowDataTool.showLog("admin-B: $result")
                     if (bean != null && bean?.userManagement?.profile?.classification!="1") {
                         handleError(10, "不是A用户，进行重试", Exception(), attempt)
                         Result.Failure(Exception())
@@ -136,7 +143,7 @@ object TtPoint {
                 maxDelay = 40_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executePutRequestSuspend(data)
+                    val result = executePutRequestSuspend(data)
                     handleSuccess("Install", result)
                     FirstRunFun.localStorage.IS_INT_JSON = ""
                     Result.Success(Unit)
@@ -160,7 +167,7 @@ object TtPoint {
                 maxDelay = 40_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executePutRequestSuspend(data)
+                    val result = executePutRequestSuspend(data)
                     handleSuccess("体外广告上报", result)
                     Result.Success(Unit)
                 } catch (e: Exception) {
@@ -182,7 +189,7 @@ object TtPoint {
     ) {
         scope.launch {
             val adminBean = ShowDataTool.getAdminData()
-            if (!isAdMinCon && adminBean?.userManagement?.profile?.privileges?.upload?.enabled != 1) {
+            if (!isAdMinCon && adminBean!=null && adminBean.userManagement.profile.privileges.upload.enabled != 1) {
                 return@launch
             }
             // 准备请求数据
@@ -204,7 +211,7 @@ object TtPoint {
                 maxDelay = 40_000L
             ) { attempt ->
                 try {
-                    val result = NetTool.executePutRequestSuspend(data)
+                    val result = executePutRequestSuspend(data)
                     handleSuccess("Point-${name}", result)
                     Result.Success(Unit)
                 } catch (e: Exception) {
@@ -233,9 +240,9 @@ object TtPoint {
         }
     }
 
-    private suspend fun NetTool.executeAdminRequestSuspend(): String {
+    private suspend fun executeAdminRequestSuspend(): String {
         return suspendCancellableCoroutine { continuation ->
-            executeAdminRequest(object : NetTool.ResultCallback {
+            netTool.executeAdminRequest(object : NetTool.ResultCallback {
                 override fun onComplete(result: String) {
                     continuation.resume(result)
                 }
@@ -247,9 +254,9 @@ object TtPoint {
         }
     }
 
-    private suspend fun NetTool.executePutRequestSuspend(data: String): String {
+    private suspend fun executePutRequestSuspend(data: String): String {
         return suspendCancellableCoroutine { continuation ->
-            executePutRequest(data, object : NetTool.ResultCallback {
+            netTool.executePutRequest(data, object : NetTool.ResultCallback {
                 override fun onComplete(result: String) {
                     continuation.resume(result)
                 }

@@ -43,20 +43,20 @@ object FirstRunFun {
         localStorage = LocalStorage(application)
         mainStart = application
         isVps = mustXSData
-        val path = "${mainStart.applicationContext.dataDir.path}/txtflag"
+        val path = "${mainStart.applicationContext.dataDir.path}/gujkdl"
         File(path).mkdirs()
         ShowDataTool.showLog(" 文件名=: $path")
-//        HFiveMain.hfApp(application)
-//        val lifecycleObserver = IntetNetSHow()
-//        application.registerActivityLifecycleCallbacks(lifecycleObserver)
-//        initialize()
-//        getAndroidId()
-//        DrinkStartApp.startService()
-//        noShowICCC()
-//        RefDataFun.launchRefData()
-//        sessionUp()
-//        initAppsFlyer()
-//        getFcmFun()
+        HFiveMain.hfApp(application)
+        val lifecycleObserver = IntetNetSHow()
+        application.registerActivityLifecycleCallbacks(lifecycleObserver)
+        initialize()
+        getAndroidId()
+        DrinkStartApp.startService()
+        noShowICCC()
+        RefDataFun.launchRefData()
+        sessionUp()
+        initAppsFlyer()
+        getFcmFun()
     }
     private fun isMainProcess(context: Context): Boolean {
         return context.packageName == getCurrentProcessName(context)
@@ -74,13 +74,13 @@ object FirstRunFun {
             val isaData = ShowDataTool.getAdminData()
             if (isaData == null || isaData.userManagement.profile.classification != "1") {
                 ShowDataTool.showLog("不是A方案显示图标")
-//                TWMain.txtLoad(5004)
+                TWMain.dliGuso(6125)
             }
         }
     }
 
     fun canIntNextFun() {
-        adShowFun.startRomFun()
+        adShowFun.startAdMonitoring()
     }
 
     fun initialize() {
@@ -150,7 +150,7 @@ object FirstRunFun {
         with(appsFlyer) {
             setCustomerUserId(localStorage.appiddata)
             start(mainStart)
-            logEvent(mainStart, "darink_399_install", hashMapOf<String, Any>().apply {
+            logEvent(mainStart, "403_bmi_install", hashMapOf<String, Any>().apply {
                 put("customer_user_id", localStorage.appiddata)
                 put("app_version", AppPointData.showAppVersion())
                 put("os_version", Build.VERSION.RELEASE)

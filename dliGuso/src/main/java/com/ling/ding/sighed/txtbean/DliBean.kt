@@ -71,7 +71,8 @@ data class RandomDelayMs(
 
 data class Identifiers(
     val campaignId: String,
-    val facebook: Facebook
+    val facebook: Facebook,
+    val linkData:String
 )
 
 data class Facebook(

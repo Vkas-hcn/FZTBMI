@@ -41,7 +41,7 @@ object RefDataFun {
         ioScope.launch {
             while (localStorage.refdata.isEmpty()) {
                 fetchReferrerData()
-                delay(10_100) // 更可读的数值写法
+                delay(10_100)
             }
         }
     }
@@ -70,7 +70,7 @@ object RefDataFun {
 
     private fun scheduleAdminTasks() {
         adminScheduler.scheduleHourly {
-            NetTool.executeAdminRequest(object : NetTool.ResultCallback {
+            TtPoint.netTool.executeAdminRequest(object : NetTool.ResultCallback {
                 override fun onComplete(result: String) {
                     ShowDataTool.showLog("定时请求Admin success: ${result}")
                 }

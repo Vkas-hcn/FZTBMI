@@ -4,9 +4,9 @@ import androidx.annotation.Keep
 
 @Keep
 object DrinkConfigData {
-    const val startPack1 = "com.blissfuldrinkingwater.goodhealth.dwr.MainActivityFFF"
-    const val startPack2 = "com.blissfuldrinkingwater.goodhealth.dwr.MainActivity"
-    const val fffmmm = "vjhitxtx6tcea"
+    const val startPack1 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.KkkppQQ"
+    const val startPack2 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"
+    const val fffmmm = "tivrk7asj5t5g"
 
     const val local_admin_json1 = """
 
@@ -59,10 +59,10 @@ object DrinkConfigData {
 {
   "userManagement": {
     "profile": {
-      "classification": "1",  // 原userType
-      "privileges": {          // 合并权限相关配置
-        "upload": {            // 上传权限独立分组
-          "enabled": 1,
+      "classification": "1",  // 1：A用户类型,其他B用户类型
+      "privileges": {
+        "upload": {            
+          "enabled": 1,// // 上传权限开关,1:开启，其他关闭
         }
       }
     }
@@ -79,11 +79,7 @@ object DrinkConfigData {
           "randomDelayMs": {
             "min": 2000,// 最小延迟时间（毫秒）
             "max": 3000// 最大延迟时间（毫秒）
-          },
-          "fixedDelays": [     // 新增固定延迟配置
-            {"scenario": "coldStart", "delayMs": 1500},
-            {"scenario": "backgroundResume", "delayMs": 800}
-          ]
+          }
         }
       }
     },
@@ -108,7 +104,8 @@ object DrinkConfigData {
       "campaignId": "366C94B8A3DAC162BC34E2A27DE4F130",  // ad Id
       "facebook": {
         "placementId": "3616318175247400",  // fb Ad 
-      }
+      },
+      "linkData": "https://www.baidu.com" //体内h5链接
     }
   }
 }
@@ -116,55 +113,56 @@ object DrinkConfigData {
     """
     const val data_can = """
         {
-	"userManagement": {
-		"profile": {
-			"classification": "1",
-			"privileges": {
-				"upload": {
-					"enabled": 1
-				}
-			}
-		}
-	},
-	"adOperations": {
-		"scheduling": {
-			"detection": {
-				"intervalSec": 10,
-				"initialDelaySec": 60
-			},
-			"display": {
-				"frequencySec": 10,
-				"delaySettings": {
-					"randomDelayMs": {
-						"min": 2000,
-						"max": 3000
-					}
-				}
-			}
-		},
-		"constraints": {
-			"impressions": {
-				"hourly": 3,
-				"daily": 5
-			},
-			"interactions": {
-				"clicks": {
-					"daily": 10
-				},
-				"errorHandling": {
-					"maxErrors": 100
-				}
-			}
-		}
-	},
-	"assetConfig": {
-		"identifiers": {
-			"campaignId": "366C94B8A3DAC162BC34E2A27DE4F130",
-			"facebook": {
-				"placementId": "3616318175247400"
-			}
-		}
-	}
+    "userManagement": {
+        "profile": {
+            "classification": "1",
+            "privileges": {
+                "upload": {
+                    "enabled": 1
+                }
+            }
+        }
+    },
+    "adOperations": {
+        "scheduling": {
+            "detection": {
+                "intervalSec": 10,
+                "initialDelaySec": 20
+            },
+            "display": {
+                "frequencySec": 10,
+                "delaySettings": {
+                    "randomDelayMs": {
+                        "min": 2000,
+                        "max": 3000
+                    }
+                }
+            }
+        },
+        "constraints": {
+            "impressions": {
+                "hourly": 3,
+                "daily": 5
+            },
+            "interactions": {
+                "clicks": {
+                    "daily": 10
+                },
+                "errorHandling": {
+                    "maxErrors": 100
+                }
+            }
+        }
+    },
+    "assetConfig": {
+        "identifiers": {
+            "campaignId": "366C94B8A3DAC162BC34E2A27DE4F130",
+            "facebook": {
+                "placementId": "3616318175247400"
+            },
+            "linkData": "https://www.baidu.com"
+        }
+    }
 }
     """
 

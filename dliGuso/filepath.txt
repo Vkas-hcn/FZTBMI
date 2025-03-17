@@ -1,20 +1,20 @@
 
-['', '',  # 包名
-               'com.flying.grass.seen.uican.UiCanActivity',# 透明activity
-               'com.flying.grass.seen.zztw.sercan.TxtNiSS', # JobSchedulerService
-               'com/flying/grass/seen/zztw/rcango/TxtNiMR',  #  广播
-               '', 'com.blissfuldrinkingwater.goodhealth.dwr.MainActivity',  # 隐藏图标 other1","main2
-               'com/flying/grass/seen/zload/TxtLoad', '"txtLoad"',# jni路径及函数
-              '/fzoret']  # 外弹文件开关名
+['com.sophisticated.person.under.sun', 'com.fitbmiscore.lifehabitfit',  # 包名
+               'com.ling.ding.sighed.macui.GuSoActivity',# 透明activity
+               'com.ling.ding.sighed.zallsi.serfzoret.FzoretSS', # JobSchedulerService
+               'com/ling/ding/sighed/zallsi/recofzt/FzoretMRe',  #  广播
+               '', 'com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp',  # 隐藏图标 other1","main2
+               'com/ling/ding/sighed/zmain/TWMain', '"dliGuso"',# jni路径及函数
+              '/gujkdl']  # 外弹文件开关名
 
 
 
 
 
 
-['com.blissfuldrinkingwater.goodhealth.dwr', 'com.water.note.mate.fresh.leaf',  # 包名
-                'com/flying/grass/seen/zload/NtLoad’,
-                '"txtTheme"','"abbrevArmy"', '"hfcanLast"',
-                'com/flying/grass/seen/zhshow/Fces7t',  # hander
-                'com/flying/grass/seen/zhshow/Wjksshow',  # WccClass
-                '/fzoret']#文件开关
+['com.sophisticated.person.under.sun', 'com.fitbmiscore.lifehabitfit',  # 包名
+                'com/ling/ding/sighed/zmain/HFiveMain’,
+                '"hfApp"','"hfAcc"', '"hfcanLast"',
+                'com/ling/ding/sighed/zwthf/FmessT',  # hander
+                'com/ling/ding/sighed/zwthf/WTNNChanged',  # WccClass
+                '/gujkdl']#文件开关

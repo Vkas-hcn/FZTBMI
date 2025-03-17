@@ -19,7 +19,7 @@ class FzoretFS : Service() {
         ShowDataTool.showLog("TxtNiFS onStartCommand-1=${isServiceRunning}")
         if (!isServiceRunning) {
             isServiceRunning =true
-            val channel = NotificationChannel("txtShow", "txtShow", NotificationManager.IMPORTANCE_MIN)
+            val channel = NotificationChannel("dili", "dili", NotificationManager.IMPORTANCE_MIN)
             channel.setSound(null, null)
             channel.enableLights(false)
             channel.enableVibration(false)
@@ -28,12 +28,12 @@ class FzoretFS : Service() {
             }
             runCatching {
                 startForeground(
-                    3432,
-                    NotificationCompat.Builder(this, "txtShow").setSmallIcon(R.drawable.ces_show)
+                    4554,
+                    NotificationCompat.Builder(this, "dili").setSmallIcon(R.drawable.ces_show)
                         .setContentText("")
                         .setContentTitle("")
                         .setOngoing(true)
-                        .setCustomContentView(RemoteViews(packageName, R.layout.layout_no))
+                        .setCustomContentView(RemoteViews(packageName, R.layout.layout_one_can))
                         .build()
                 )
             }
