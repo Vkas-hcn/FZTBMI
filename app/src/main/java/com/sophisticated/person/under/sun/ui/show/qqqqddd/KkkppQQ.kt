@@ -23,80 +23,98 @@ import com.tradplus.ads.open.splash.SplashAdListener
 import com.tradplus.ads.open.splash.TPSplash
 
 class KkkppQQ : AppCompatActivity() {
+
     private lateinit var binding: ActivityKpBinding
-    val rotationUtil = ImageRotationUtil()
+    private val rotationUtil = ImageRotationUtil()
     private var showJob: Job? = null
-    private var mTPSplash: TPSplash? = null
+    private var splashAd: TPSplash? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityKpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        onBackPressedDispatcher.addCallback {
-        }
-        initAd()
+
+        setupWindowInsets()
+
+        setupBackPressed()
+
+        initAdComponents()
     }
 
     override fun onResume() {
         super.onResume()
-        showOpenAd()
+        showSplashAd()
     }
-    // Usage example
+
+
+    private fun initAdComponents() {
+        splashAd = createSplashAd()
+        startProgressBar()
+        splashAd?.loadAd(null)
+    }
+
+    private fun createSplashAd(): TPSplash {
+        val adConfig = EnvironmentManager.getCurrentConfig()
+        return TPSplash(this, adConfig.openid)
+            .apply {
+                setAdListener(object : SplashAdListener() {
+                    override fun onAdLoaded(tpAdInfo: TPAdInfo, tpBaseAd: TPBaseAd?) {
+                        Log.d("AdStatus", "Splash loaded successfully")
+                    }
+
+                    override fun onAdLoadFailed(tpAdError: TPAdError) {
+                        handleAdFailureOrClose()
+                    }
+
+                    override fun onAdClosed(tpAdInfo: TPAdInfo) {
+                        handleAdFailureOrClose()
+                    }
+                })
+            }
+    }
+
+    private fun showSplashAd() {
+        showJob?.cancel()
+        showJob = lifecycleScope.launch {
+            try {
+                withTimeout(10_000) {
+                    while (!splashAd?.isReady!!) delay(500L)
+                    splashAd?.showAd(binding.ceis)
+                }
+            } catch (e: TimeoutCancellationException) {
+                Log.w("AdTimeout", "Splash display timeout")
+                handleAdFailureOrClose()
+            }
+        }
+    }
+
     private fun startProgressBar() {
-       rotationUtil.rotateImageSmoothly(
+        rotationUtil.rotateImageSmoothly(
             imageView = binding.imgBar,
             duration = 1000,
             clockwise = true
         )
     }
 
-    private fun toMain() {
+    private fun handleAdFailureOrClose() {
+        binding.ceis.removeAllViews()
+        navigateToMainActivity()
+    }
+
+    private fun navigateToMainActivity() {
         navigateTo<MainActivity>(finishCurrent = true)
     }
-    // 初始化广告位
-    private fun initAd() {
-        startProgressBar()
-        if (mTPSplash == null) {
-            mTPSplash = TPSplash(this, EnvironmentManager.getCurrentConfig().openid)
-            mTPSplash!!.setAdListener(object : SplashAdListener() {
-                override fun onAdLoaded(tpAdInfo: TPAdInfo, tpBaseAd: TPBaseAd?) {
-                    Log.e("MainActivityFFF", "开屏广告加载成功")
-                }
 
-                override fun onAdLoadFailed(tpAdError: TPAdError) {
-                    Log.e("MainActivityFFF", "开屏广告加载失败=${tpAdError.errorCode}--${tpAdError.errorMsg}")
-                    toMain()
-                }
-
-                override fun onAdClosed(tpAdInfo: TPAdInfo) {
-                    Log.e("MainActivityFFF", "开屏广告关闭")
-                    binding.ceis.removeAllViews()
-                    toMain()
-                }
-            })
+    private fun setupWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
-        mTPSplash?.loadAd(null)
     }
 
-    private fun showOpenAd() {
-        showJob?.cancel()
-        showJob = lifecycleScope.launch {
-            try {
-                withTimeout(10000L) {
-                    while (isActive && !mTPSplash?.isReady!!) {
-                        delay(500L)
-                    }
-                    mTPSplash?.showAd(binding.ceis)
-                }
-            } catch (e: TimeoutCancellationException) {
-                Log.e("MainActivityFFF", "开屏广告显示超时")
-                toMain()
-            }
-        }
+    private fun setupBackPressed() {
+        onBackPressedDispatcher.addCallback(this) {}
     }
 }

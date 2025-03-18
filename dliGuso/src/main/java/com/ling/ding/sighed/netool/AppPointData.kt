@@ -133,10 +133,8 @@ object AppPointData {
         key2: String? = null,
         keyValue2: Any? = null,
     ): String {
-
         return topJsonData().apply {
             put("raunchy", name)
-            // 创建一个新的 JSON 对象用于存放属性
             put(name,JSONObject().apply {
                 if (key1 != null) {
                     put(key1, keyValue1)

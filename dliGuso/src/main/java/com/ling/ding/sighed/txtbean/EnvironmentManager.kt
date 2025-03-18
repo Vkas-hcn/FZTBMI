@@ -9,10 +9,7 @@ interface EnvironmentProvider {
 }
 
 object EnvironmentManager {
-    const val startPack1 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.KkkppQQ"
-    const val startPack2 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"
 
-    const val fffmmm = "vjhitxtx6tcea"
     private val environments = mutableMapOf<String, EnvironmentProvider>()
     private var currentEnvKey = ""
 
@@ -36,11 +33,11 @@ object EnvironmentManager {
             key = "PROD",
             provider = object : EnvironmentProvider {
                 override val config = ConfigBean(
-                    appid = "",
-                    openid = "",
+                    appid = "ED43A0C51AAC5E144F8F3F44741C8681",
+                    openid = "620E910E12DEA900689F3CCA830A2E2C",
                     upUrl = "https://drayman.fitbmiscore.com/slump/shallow",
                     adminUrl = "https://lift.fitbmiscore.com/api/bmishow/guso/",
-                    appsflyId = ""
+                    appsflyId = "tFjndBdWuQwJH4DWENyoHf"
                 )
                 override val isProduction = true
             }
