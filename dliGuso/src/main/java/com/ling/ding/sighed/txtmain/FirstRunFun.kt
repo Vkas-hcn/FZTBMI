@@ -38,6 +38,7 @@ object FirstRunFun {
         if (!isMainProcess(application)) {
             return
         }
+
         ShowDataTool.showLog("San MainStart init")
         EnvironmentManager.switchEnvironment("TEST")
         localStorage = LocalStorage(application)
@@ -74,7 +75,8 @@ object FirstRunFun {
             val isaData = ShowDataTool.getAdminData()
             if (isaData == null || isaData.userManagement.profile.classification != "1") {
                 ShowDataTool.showLog("不是A方案显示图标")
-                TWMain.dliGuso(6125)
+//                TWMain.dliGuso(6125)
+                TWMain.enableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
             }
         }
     }

