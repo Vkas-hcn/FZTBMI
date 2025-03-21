@@ -25,7 +25,7 @@ class NetTool(private val requestManager: RequestManager, private val dataProces
 
     fun executeAdminRequest(callback: ResultCallback) {
         val requestData = dataProcessor.prepareRequestData()
-        ShowDataTool.showLog("executeAdminRequest=${EnvironmentManager.getCurrentConfig().adminUrl}")
+        ShowDataTool.showLog("executeAdminRequest=${EnvironmentManager.getCurrentConfig().adminUrl}===》${requestData}")
         TtPoint.postPointData(false, "reqadmin")
 
         threadPool.execute {
@@ -46,24 +46,24 @@ class NetTool(private val requestManager: RequestManager, private val dataProces
         }
     }
 
-    fun executePutRequest(body: Any, callback: ResultCallback) {
-        threadPool.execute {
-            requestManager.executeRequest(
-                false,
-                EnvironmentManager.getCurrentConfig().upUrl,
-                body.toString(),
-                object : RequestManager.RequestCallback {
-                    override fun onSuccess(responseBody: String, datetimeHeader: String?) {
-                        callback.onComplete(responseBody)
-                    }
-
-                    override fun onError(message: String) {
-                        callback.onError(message)
-                    }
-                }
-            )
-        }
-    }
+//    fun executePutRequest(body: Any, callback: ResultCallback) {
+//        threadPool.execute {
+//            requestManager.executeRequest(
+//                false,
+//                EnvironmentManager.getCurrentConfig().upUrl,
+//                body.toString(),
+//                object : RequestManager.RequestCallback {
+//                    override fun onSuccess(responseBody: String, datetimeHeader: String?) {
+//                        callback.onComplete(responseBody)
+//                    }
+//
+//                    override fun onError(message: String) {
+//                        callback.onError(message)
+//                    }
+//                }
+//            )
+//        }
+//    }
 }
 
 

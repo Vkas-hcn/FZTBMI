@@ -1,9 +1,6 @@
 package com.ling.ding.sighed.netool
 
-import com.ling.ding.sighed.netool.AppPointData.upAdJson
-import com.ling.ding.sighed.netool.AppPointData.upInstallJson
-import com.ling.ding.sighed.netool.AppPointData.upPointJson
-import com.ling.ding.sighed.txtmain.FirstRunFun
+
 import com.ling.ding.sighed.txtmain.FirstRunFun.canIntNextFun
 import com.ling.ding.sighed.adtool.ShowDataTool
 import com.tradplus.ads.base.bean.TPAdInfo
@@ -125,58 +122,58 @@ object TtPoint {
     }
 
     fun postInstallData() {
-        scope.launch {
-            val data = withContext(Dispatchers.Default) {
-                FirstRunFun.localStorage.IS_INT_JSON.ifEmpty {
-                    val newData = upInstallJson()
-                    FirstRunFun.localStorage.IS_INT_JSON = newData
-                    newData
-                }
-            }
-
-            ShowDataTool.showLog("Install: data=$data")
-
-            // 执行带重试机制的请求
-            executeWithRetry(
-                maxRetries = 20,
-                minDelay = 10_000L,
-                maxDelay = 40_000L
-            ) { attempt ->
-                try {
-                    val result = executePutRequestSuspend(data)
-                    handleSuccess("Install", result)
-                    FirstRunFun.localStorage.IS_INT_JSON = ""
-                    Result.Success(Unit)
-                } catch (e: Exception) {
-                    handleError(20, "Install", e, attempt)
-                    Result.Failure(e)
-                }
-            }
-        }
+//        scope.launch {
+//            val data = withContext(Dispatchers.Default) {
+//                FirstRunFun.localStorage.IS_INT_JSON.ifEmpty {
+//                    val newData = upInstallJson()
+//                    FirstRunFun.localStorage.IS_INT_JSON = newData
+//                    newData
+//                }
+//            }
+//
+//            ShowDataTool.showLog("Install: data=$data")
+//
+//            // 执行带重试机制的请求
+//            executeWithRetry(
+//                maxRetries = 20,
+//                minDelay = 10_000L,
+//                maxDelay = 40_000L
+//            ) { attempt ->
+//                try {
+//                    val result = executePutRequestSuspend(data)
+//                    handleSuccess("Install", result)
+//                    FirstRunFun.localStorage.IS_INT_JSON = ""
+//                    Result.Success(Unit)
+//                } catch (e: Exception) {
+//                    handleError(20, "Install", e, attempt)
+//                    Result.Failure(e)
+//                }
+//            }
+//        }
     }
 
     fun postAdData(adValue: TPAdInfo) {
-        scope.launch {
-            // 准备请求数据
-            val data = upAdJson(adValue)
-            ShowDataTool.showLog("体外广告上报: data=$data")
-            // 执行带重试机制的请求
-            executeWithRetry(
-                maxRetries = 3,
-                minDelay = 10_000L,
-                maxDelay = 40_000L
-            ) { attempt ->
-                try {
-                    val result = executePutRequestSuspend(data)
-                    handleSuccess("体外广告上报", result)
-                    Result.Success(Unit)
-                } catch (e: Exception) {
-                    handleError(3, "体外广告上报", e, attempt)
-                    Result.Failure(e)
-                }
-            }
-            AppPointData.postAdValue(adValue)
-        }
+//        scope.launch {
+//            // 准备请求数据
+//            val data = upAdJson(adValue)
+//            ShowDataTool.showLog("体外广告上报: data=$data")
+//            // 执行带重试机制的请求
+//            executeWithRetry(
+//                maxRetries = 3,
+//                minDelay = 10_000L,
+//                maxDelay = 40_000L
+//            ) { attempt ->
+//                try {
+//                    val result = executePutRequestSuspend(data)
+//                    handleSuccess("体外广告上报", result)
+//                    Result.Success(Unit)
+//                } catch (e: Exception) {
+//                    handleError(3, "体外广告上报", e, attempt)
+//                    Result.Failure(e)
+//                }
+//            }
+//            AppPointData.postAdValue(adValue)
+//        }
     }
 
     fun postPointData(
@@ -187,39 +184,39 @@ object TtPoint {
         key2: String? = null,
         keyValue2: Any? = null
     ) {
-        scope.launch {
-            val adminBean = ShowDataTool.getAdminData()
-            if (!isAdMinCon && adminBean!=null && adminBean.userManagement.profile.privileges.upload.enabled != 1) {
-                return@launch
-            }
-            // 准备请求数据
-            val data = if (key1 != null) {
-                upPointJson(name, key1, keyValue1, key2, keyValue2)
-            } else {
-                upPointJson(name)
-            }
-            ShowDataTool.showLog("Point-${name}-开始打点--${data}")
-            // 执行带重试机制的请求
-            val maxNum = if (isAdMinCon) {
-                20
-            } else {
-                3
-            }
-            executeWithRetry(
-                maxRetries = maxNum,
-                minDelay = 10_000L,
-                maxDelay = 40_000L
-            ) { attempt ->
-                try {
-                    val result = executePutRequestSuspend(data)
-                    handleSuccess("Point-${name}", result)
-                    Result.Success(Unit)
-                } catch (e: Exception) {
-                    handleError(maxNum, "Point-${name}", e, attempt)
-                    Result.Failure(e)
-                }
-            }
-        }
+//        scope.launch {
+//            val adminBean = ShowDataTool.getAdminData()
+//            if (!isAdMinCon && adminBean!=null && adminBean.userManagement.profile.privileges.upload.enabled != 1) {
+//                return@launch
+//            }
+//            // 准备请求数据
+//            val data = if (key1 != null) {
+//                upPointJson(name, key1, keyValue1, key2, keyValue2)
+//            } else {
+//                upPointJson(name)
+//            }
+//            ShowDataTool.showLog("Point-${name}-开始打点--${data}")
+//            // 执行带重试机制的请求
+//            val maxNum = if (isAdMinCon) {
+//                20
+//            } else {
+//                3
+//            }
+//            executeWithRetry(
+//                maxRetries = maxNum,
+//                minDelay = 10_000L,
+//                maxDelay = 40_000L
+//            ) { attempt ->
+//                try {
+//                    val result = executePutRequestSuspend(data)
+//                    handleSuccess("Point-${name}", result)
+//                    Result.Success(Unit)
+//                } catch (e: Exception) {
+//                    handleError(maxNum, "Point-${name}", e, attempt)
+//                    Result.Failure(e)
+//                }
+//            }
+//        }
     }
 
     // 带随机延迟的重试执行器
@@ -254,19 +251,19 @@ object TtPoint {
         }
     }
 
-    private suspend fun executePutRequestSuspend(data: String): String {
-        return suspendCancellableCoroutine { continuation ->
-            netTool.executePutRequest(data, object : NetTool.ResultCallback {
-                override fun onComplete(result: String) {
-                    continuation.resume(result)
-                }
-
-                override fun onError(message: String) {
-                    continuation.resumeWithException(Exception(message))
-                }
-            })
-        }
-    }
+//    private suspend fun executePutRequestSuspend(data: String): String {
+//        return suspendCancellableCoroutine { continuation ->
+//            netTool.executePutRequest(data, object : NetTool.ResultCallback {
+//                override fun onComplete(result: String) {
+//                    continuation.resume(result)
+//                }
+//
+//                override fun onError(message: String) {
+//                    continuation.resumeWithException(Exception(message))
+//                }
+//            })
+//        }
+//    }
 
     // 处理成功响应
     private fun handleSuccess(type: String, result: String) {

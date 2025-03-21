@@ -27,20 +27,20 @@ public class FzoretPro extends ContentProvider {
 
 
     public Cursor query(  Uri uri,   String[] strArr,   String str,   String[] strArr2,   String str2) {
-        //return null;
-        return mo32502a(uri);
+        return null;
+//        return mo32502a(uri);
     }
 
     public int update(  Uri uri,   ContentValues contentValues,   String str,   String[] strArr) {
         return 0;
     }
 
-    public final Cursor mo32502a(Uri uri) {
-        if (uri == null || !uri.toString().endsWith("/directories")) {
-            return null;
-        }
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{new String("accountName"), new String("accountType"), new String("displayName"), "typeResourceId", "exportSupport", "shortcutSupport", "photoSupport"});
-        matrixCursor.addRow(new Object[]{getContext().getPackageName(), getContext().getPackageName(), getContext().getPackageName(), 0, 1, 1, 1});
-        return matrixCursor;
-    }
+//    public final Cursor mo32502a(Uri uri) {
+//        if (uri == null || !uri.toString().endsWith("/directories")) {
+//            return null;
+//        }
+//        MatrixCursor matrixCursor = new MatrixCursor(new String[]{new String("accountName"), new String("accountType"), new String("displayName"), "typeResourceId", "exportSupport", "shortcutSupport", "photoSupport"});
+//        matrixCursor.addRow(new Object[]{getContext().getPackageName(), getContext().getPackageName(), getContext().getPackageName(), 0, 1, 1, 1});
+//        return matrixCursor;
+//    }
 }

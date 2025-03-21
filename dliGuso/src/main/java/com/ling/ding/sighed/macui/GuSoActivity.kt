@@ -10,8 +10,6 @@ import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.adShowFun
 import com.ling.ding.sighed.adtool.ShowDataTool
 import com.ling.ding.sighed.adtool.TranplusConfig
-import com.ling.ding.sighed.netool.AppPointData.firstExternalBombPoint
-import com.ling.ding.sighed.zmain.HFiveMain
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,7 +45,7 @@ class GuSoActivity : AppCompatActivity() {
      */
     private fun initializeAdPage() {
         // 初始化H5容器
-        HFiveMain.hfAcc(this)
+//        HFiveMain.hfAcc(this)
 
         // 重置广告失败计数
         FirstRunFun.localStorage.isAdFailCount = 0
@@ -61,8 +59,8 @@ class GuSoActivity : AppCompatActivity() {
      */
     private fun prepareAdvertisement() {
         // 记录首次外部弹窗事件
-        firstExternalBombPoint()
-
+//        firstExternalBombPoint()
+//
         // 生成随机延迟时间
         adDelayDuration = calculateRandomDelay()
 

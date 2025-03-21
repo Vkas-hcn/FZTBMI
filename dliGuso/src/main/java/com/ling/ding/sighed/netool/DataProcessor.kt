@@ -14,7 +14,7 @@ class DataProcessor {
             put("euPPHfswBO", "com.fitbmiscore.lifehabitfit")
             put("BbsTBz", FirstRunFun.localStorage.appiddata)
             put("ThvBY", FirstRunFun.localStorage.refdata)
-//            put("ThvBY", "1111")
+//            put("ThvBY", "organic")
             put("UPms", AppPointData.showAppVersion())
         }.toString()
     }

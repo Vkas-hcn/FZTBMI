@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         clickEvent()
-        setAdCanShow()
+//        setAdCanShow()
     }
 
     private fun clickEvent() {

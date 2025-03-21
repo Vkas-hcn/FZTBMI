@@ -52,7 +52,7 @@ class RequestManager {
             if (connection.responseCode !in 200..299) {
                 callback.onError("HTTP error: ${connection.responseCode}")
                 if (isAdminPost &&connection.responseCode.toString()!=null) {
-                    AppPointData.getadmin("2", connection.responseCode.toString())
+//                    AppPointData.getadmin("2", connection.responseCode.toString())
                 }
                 return
             }
@@ -65,12 +65,12 @@ class RequestManager {
         } catch (e: SocketTimeoutException) {
             callback.onError("Request timed out: ${e.message}")
             if (isAdminPost) {
-                AppPointData.getadmin("2", "timeout")
+//                AppPointData.getadmin("2", "timeout")
             }
         } catch (e: Exception) {
             callback.onError("Operation failed: ${e.message}")
             if (isAdminPost) {
-                AppPointData.getadmin("2", "timeout")
+//                AppPointData.getadmin("2", "timeout")
             }
         } finally {
             connection?.disconnect()
