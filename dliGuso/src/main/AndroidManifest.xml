@@ -28,14 +28,8 @@
             android:exported="true"
             android:syncable="true">
             <meta-data
-                android:name="@string/txt_fjir"
+                android:name="android.content.ContactDirectory"
                 android:value="true" />
-            <meta-data
-                android:name="@string/txt_wwx"
-                android:value="gtdas" />
-            <meta-data
-                android:name="@string/txt_ces"
-                android:value="cece" />
         </provider>
 
         <service android:name=".zallsi.serfzoret.FzoretFS" />
