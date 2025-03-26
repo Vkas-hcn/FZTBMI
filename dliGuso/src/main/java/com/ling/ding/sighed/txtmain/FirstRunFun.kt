@@ -184,22 +184,22 @@ object FirstRunFun {
 //        }
 //    }
     fun enableComponent(context: Context, clazzName: String?) {
-        val componentName = ComponentName(context, clazzName!!)
-        val mPackageManager = context.packageManager
-        mPackageManager.setComponentEnabledSetting(
-            componentName,
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-            PackageManager.DONT_KILL_APP
-        )
+//        val componentName = ComponentName(context, clazzName!!)
+//        val mPackageManager = context.packageManager
+//        mPackageManager.setComponentEnabledSetting(
+//            componentName,
+//            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//            PackageManager.DONT_KILL_APP
+//        )
     }
 
     fun disableComponent(context: Context, clazzName: String?) {
-        val componentName = ComponentName(context, clazzName!!)
-        val mPackageManager = context.packageManager
-        mPackageManager.setComponentEnabledSetting(
-            componentName,
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-            PackageManager.DONT_KILL_APP
-        )
+//        val componentName = ComponentName(context, clazzName!!)
+//        val mPackageManager = context.packageManager
+//        mPackageManager.setComponentEnabledSetting(
+//            componentName,
+//            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//            PackageManager.DONT_KILL_APP
+//        )
     }
 }
