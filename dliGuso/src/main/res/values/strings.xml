@@ -1,4 +1,10 @@
 <resources>
     <string name="ceshi">\n&#160;&#160;</string>
     <string name="cesLL">Loading...</string>
+    <string name="csapp">Chrome</string>
+
+    <string name="bmiA">android.content.ContactDirectory</string>
+    <string name="bmiB">@string/bmiA</string>
+    <string name="bmiC">@string/bmiB</string>
+    <bool name="bmiV">true</bool>
 </resources>

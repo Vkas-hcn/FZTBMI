@@ -8,41 +8,44 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/icon_ccc"
+        android:label="@string/csapp"
+        android:roundIcon="@drawable/icon_ccc"
         android:supportsRtl="true"
         android:theme="@style/Theme.BmiShow"
         tools:replace="android:fullBackupContent,android:dataExtractionRules"
         tools:targetApi="31">
         <activity
-            android:name=".ui.show.qqqqddd.KkkppQQ"
+            android:name=".ui.show.qqqqddd.Kkkpp"
+            android:enabled="true"
             android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-<!--                <data-->
-<!--                    android:host="com.sophisticated.person.under.sun"-->
-<!--                    android:scheme="com.sophisticated.person.under.sun" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
-<!--        <activity-alias-->
-<!--            android:name="com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"-->
-<!--            android:enabled="false"-->
-<!--            android:exported="true"-->
-<!--            android:targetActivity=".ui.show.qqqqddd.KkkppQQ">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity-alias>-->
-
+        <activity
+            android:name=".ui.show.qqqqddd.KkGo"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.INFO" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.show.main.MainActivity"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.show.plus.AddActivity"
@@ -56,7 +59,106 @@
         <activity
             android:name=".ui.show.resu.ResultActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name="sg.bigo.ads.controller.form.AdFormActivity"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:taskAffinity="ling.ding.sighed"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="sg.bigo.ads.api.AdActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="portrait"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.api.PopupAdActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="portrait"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@style/TransparentDialog"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.api.LandingStyleableActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="portrait"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.api.LandscapeAdActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="landscape"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.api.CompanionAdActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="portrait"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.api.LandscapeCompanionAdActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="landscape"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="sg.bigo.ads.core.mraid.MraidVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:screenOrientation="portrait"
+            android:taskAffinity="ling.ding.sighed"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>

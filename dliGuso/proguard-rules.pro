@@ -3,7 +3,6 @@
 
 -keep class com.ling.ding.sighed.zallsi.recofzt.FzoretMRe { *; }
 
--keep class com.ling.ding.sighed.zwthf.CshowTmain { *; }
 -keep class com.ling.ding.sighed.zwthf.FmessT { *; }
 -keep class com.ling.ding.sighed.zwthf.WTNNChanged { *; }
 -keep class com.ling.ding.sighed.txtdata.LocalStorage { *; }

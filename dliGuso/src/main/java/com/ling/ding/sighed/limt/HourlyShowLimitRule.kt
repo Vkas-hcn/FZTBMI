@@ -30,7 +30,7 @@ class DailyShowLimitRule(
     override fun checkLimit(isCanUp: Boolean): Boolean {
         val state = (localStorage.dailyShowCount ?: 0) < dailyLimit
         if (!state && isCanUp) {
-//            AppPointData.getLiMitData()
+            AppPointData.getLiMitData()
         }
         return (localStorage.dailyShowCount ?: 0) < dailyLimit
     }
@@ -53,7 +53,7 @@ class DailyClickLimitRule(
     override fun checkLimit(isCanUp: Boolean): Boolean {
         val state = (localStorage.clickCount ?: 0) < dailyClickLimit
         if (!state && isCanUp) {
-//            AppPointData.getLiMitData()
+            AppPointData.getLiMitData()
         }
         return (localStorage.clickCount ?: 0) < dailyClickLimit
     }

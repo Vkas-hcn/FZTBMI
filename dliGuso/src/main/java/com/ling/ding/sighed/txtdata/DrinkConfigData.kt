@@ -4,9 +4,8 @@ import androidx.annotation.Keep
 
 @Keep
 object DrinkConfigData {
-    const val startPack1 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.KkkppQQ"
     const val startPack2 = "com.sophisticated.person.under.sun.ui.show.qqqqddd.Kkkpp"
-    const val fffmmm = "tivrk7asj5t5g"
+    const val fffmmm = "sophdtivisticate"
 
     const val local_admin_json1 = """
 

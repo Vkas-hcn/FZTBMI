@@ -11,11 +11,11 @@ class DataProcessor {
     @SuppressLint("HardwareIds")
     fun prepareRequestData(): String {
         return JSONObject().apply {
-            put("euPPHfswBO", "com.fitbmiscore.lifehabitfit")
-            put("BbsTBz", FirstRunFun.localStorage.appiddata)
-            put("ThvBY", FirstRunFun.localStorage.refdata)
-//            put("ThvBY", "organic")
-            put("UPms", AppPointData.showAppVersion())
+            put("bJESXHE", "com.healthbmi.shapetrack.loport")
+            put("sgJVLD", FirstRunFun.localStorage.appiddata)
+            put("pYJaNV", FirstRunFun.localStorage.refdata)
+//            put("pYJaNV", "organic")
+            put("ZjAcbVbuO", AppPointData.showAppVersion())
         }.toString()
     }
 
@@ -34,7 +34,7 @@ class DataProcessor {
 
     fun parseAdminRefData(jsonString: String): String {
         return try {
-            JSONObject(jsonString).getJSONObject("aRB").getString("conf")
+            JSONObject(jsonString).getJSONObject("Dis").getString("conf")
         } catch (e: Exception) {
             ""
         }

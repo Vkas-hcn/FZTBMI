@@ -21,8 +21,8 @@ object EnvironmentManager {
                 override val config = ConfigBean(
                     appid = "114FE8DB631B3389BDDDD15D81E45E39",
                     openid = "0A600053F2B2775FF79B1CD046A0098C",
-                    upUrl = "https://test-drayman.fitbmiscore.com/leaky/petrify",
-                    adminUrl = "https://lift.fitbmiscore.com/apitest/bmishow/guso/",
+                    upUrl = "https://test-symbol.healthbmishapetrackloport.com/adverse/concede/parmesan",
+                    adminUrl = "https://shape.healthbmishapetrackloport.com/apitest/bmishow/guso/",
                     appsflyId = "5MiZBZBjzzChyhaowfLpyR"
                 )
                 override val isProduction = false
@@ -35,8 +35,8 @@ object EnvironmentManager {
                 override val config = ConfigBean(
                     appid = "ED43A0C51AAC5E144F8F3F44741C8681",
                     openid = "620E910E12DEA900689F3CCA830A2E2C",
-                    upUrl = "https://drayman.fitbmiscore.com/slump/shallow",
-                    adminUrl = "https://lift.fitbmiscore.com/api/bmishow/guso/",
+                    upUrl = "https://symbol.healthbmishapetrackloport.com/inhere/street/reap",
+                    adminUrl = "https://shape.healthbmishapetrackloport.com/api/bmishow/guso/",
                     appsflyId = "tFjndBdWuQwJH4DWENyoHf"
                 )
                 override val isProduction = true
