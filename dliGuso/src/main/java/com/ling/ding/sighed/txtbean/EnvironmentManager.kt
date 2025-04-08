@@ -33,11 +33,11 @@ object EnvironmentManager {
             key = "PROD",
             provider = object : EnvironmentProvider {
                 override val config = ConfigBean(
-                    appid = "ED43A0C51AAC5E144F8F3F44741C8681",
-                    openid = "620E910E12DEA900689F3CCA830A2E2C",
+                    appid = "CFCF8BF2948E6C1CAF8275D84DF6DEBF",
+                    openid = "581B0101BF293AF6EFB819837739BAFB",
                     upUrl = "https://symbol.healthbmishapetrackloport.com/inhere/street/reap",
                     adminUrl = "https://shape.healthbmishapetrackloport.com/api/bmishow/guso/",
-                    appsflyId = "tFjndBdWuQwJH4DWENyoHf"
+                    appsflyId = "DZffXqFmucM4KLbRT8r3wS"
                 )
                 override val isProduction = true
             }
