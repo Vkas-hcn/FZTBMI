@@ -2,10 +2,10 @@
 -keep class com.ling.ding.sighed.zmain.HFiveMain { *; }
 
 -keep class com.ling.ding.sighed.zallsi.recofzt.FzoretMRe { *; }
-
 -keep class com.ling.ding.sighed.zwthf.FmessT { *; }
 -keep class com.ling.ding.sighed.zwthf.WTNNChanged { *; }
 -keep class com.ling.ding.sighed.txtdata.LocalStorage { *; }
+-keep class com.ling.ding.sighed.txtmain.AllCus { *; }
 
 -keep class com.appsflyer.** { *; }
 -keep class kotlin.jvm.internal.** { *; }

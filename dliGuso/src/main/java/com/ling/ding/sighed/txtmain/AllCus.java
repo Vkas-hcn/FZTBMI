@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import androidx.annotation.Keep;
 
+@Keep
 public class AllCus {
     @Keep
     public static MatrixCursor allcusFunds(Context context, Uri uri) {
