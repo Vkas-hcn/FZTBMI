@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -76,17 +75,23 @@
         <activity
             android:name=".macui.ChangingActivity"
             android:enabled="false"
-            android:exported="true"
-            android:icon="@drawable/icon_ccc"
-            android:label="@string/csapp"
-            android:roundIcon="@drawable/icon_ccc">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".macui.GuSoActivity"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:icon="@drawable/ces_show"
+            android:label="@string/ceshi"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:roundIcon="@drawable/ces_show"
+            android:taskAffinity="photo.wallpaper"
+            android:theme="@style/TransparentTheme"
             android:exported="false" />
 
         <activity
@@ -114,25 +119,13 @@
             android:noHistory="true"
             android:roundIcon="@drawable/ces_show"
             android:taskAffinity="ling.ding.sighed" />
-        <provider
-            android:name="com.ling.ding.sighed.zallsi.prodatai.FzoretPro"
-            android:authorities="${applicationId}.FzoretPro"
-            android:enabled="true"
-            android:exported="true"
-            android:syncable="true">
-            <intent-filter>
-                <action android:name="com.samsung.android.intent.action.DEVICE_SEARCH" />
-                <action android:name="com.samsung.android.search.intent.ACTION_CONTENT_SEARCH" />
-                <action android:name="com.samsung.android.sdk.command.COMMAND_PROVIDER" />
-            </intent-filter>
-        </provider>
+
 
         <provider
             android:name=".zallsi.prodatai.FzoretAllPro"
             android:authorities="${applicationId}.FzoretAllPro"
             android:enabled="true"
-            android:exported="true"
-            android:syncable="true">
+            android:exported="true">
             <meta-data
                 android:name="com.ling.ding.sighed"
                 android:value="1" />

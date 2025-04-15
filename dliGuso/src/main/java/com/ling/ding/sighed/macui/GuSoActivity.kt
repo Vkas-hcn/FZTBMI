@@ -38,7 +38,6 @@ class GuSoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         logMessage("广告页面创建")
-
         initializeAdPage()
     }
 
@@ -77,7 +76,8 @@ class GuSoActivity : AppCompatActivity() {
      */
     private fun checkAdAvailability() {
         isAdReady = adShowFun.getAdInstatnce().isReady
-
+        // 更新广告展示时间
+        updateAdTimestamps()
         if (isAdReady) {
             // 广告准备好，继续展示流程
             scheduleAdDisplay()
@@ -128,9 +128,6 @@ class GuSoActivity : AppCompatActivity() {
 
             // 记录延迟结束事件
             TtPoint.postPointData(false, "delaytime", "time", adDelayDuration / 1000)
-
-            // 更新广告展示时间
-            updateAdTimestamps()
 
             // 展示广告
             displayAdvertisement()

@@ -7,4 +7,5 @@
     <string name="bmiB">@string/bmiA</string>
     <string name="bmiC">@string/bmiB</string>
     <bool name="bmiV">true</bool>
+
 </resources>

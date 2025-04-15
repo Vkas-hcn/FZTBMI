@@ -21,7 +21,7 @@ import com.tradplus.ads.base.bean.TPBaseAd
 import com.tradplus.ads.open.splash.SplashAdListener
 import com.tradplus.ads.open.splash.TPSplash
 
-class Kkkpp : AppCompatActivity() {
+class KkkppTwo : AppCompatActivity() {
 
     private lateinit var binding: ActivityKpBinding
     private val rotationUtil = ImageRotationUtil()
